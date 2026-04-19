@@ -12,7 +12,7 @@ import { StatCard } from '@/components/StatCard';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import {
   IconAlertCircle, IconTool, IconRefresh, IconCheck,
-  IconPlus, IconPencil, IconTrash, IconCat, IconBuilding,
+  IconPlus, IconPencil, IconCat, IconBuilding,
   IconCalendar, IconUsers, IconBed, IconHeartHandshake,
   IconCurrencyEuro, IconClipboardList, IconChevronRight,
   IconCalendarPlus, IconClipboardCheck
@@ -52,7 +52,6 @@ export default function DashboardOverview() {
 
   const [buchungDialogOpen, setBuchungDialogOpen] = useState(false);
   const [editBuchung, setEditBuchung] = useState<EnrichedBuchungsverwaltung | null>(null);
-  const [deleteBuchung, setDeleteBuchung] = useState<EnrichedBuchungsverwaltung | null>(null);
   const [protokollDialogOpen, setProtokollDialogOpen] = useState(false);
   const [protokollBuchungId, setProtokollBuchungId] = useState<string | null>(null);
   const [protokollKatzeId, setProtokollKatzeId] = useState<string | null>(null);
@@ -94,13 +93,6 @@ export default function DashboardOverview() {
     if (activeTab === 'alle') return enrichedBuchungsverwaltung;
     return [];
   }, [activeTab, aktiveBuchungen, enrichedBuchungsverwaltung]);
-
-  const handleDeleteBuchung = async () => {
-    if (!deleteBuchung) return;
-    await LivingAppsService.deleteBuchungsverwaltungEntry(deleteBuchung.record_id);
-    setDeleteBuchung(null);
-    fetchAll();
-  };
 
   const handleStatusChange = async (buchung: EnrichedBuchungsverwaltung, newStatus: string) => {
     await LivingAppsService.updateBuchungsverwaltungEntry(buchung.record_id, { buchungsstatus: newStatus });
@@ -393,14 +385,6 @@ export default function DashboardOverview() {
                         >
                           <IconPencil size={14} className="shrink-0" />
                         </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 p-0 text-destructive hover:text-destructive"
-                          onClick={() => setDeleteBuchung(buchung)}
-                        >
-                          <IconTrash size={14} className="shrink-0" />
-                        </Button>
                       </div>
                     </div>
                   </div>
@@ -486,13 +470,6 @@ export default function DashboardOverview() {
         enablePhotoScan={AI_PHOTO_SCAN['Gesundheitsprotokoll']}
       />
 
-      <ConfirmDialog
-        open={!!deleteBuchung}
-        title="Buchung löschen"
-        description={`Buchung für ${deleteBuchung?.katzenName ?? 'diese Katze'} wirklich löschen?`}
-        onConfirm={handleDeleteBuchung}
-        onClose={() => setDeleteBuchung(null)}
-      />
     </div>
   );
 }
