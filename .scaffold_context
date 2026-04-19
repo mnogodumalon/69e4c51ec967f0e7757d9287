@@ -1,0 +1,2405 @@
+# Scaffold Context — Generated File Contents
+
+These files are pre-generated. Do NOT Read them — their contents are below.
+EXCEPTION: DashboardOverview.tsx is NOT included here. You MUST Read it with the Read tool before Write.
+Your job: Analyze data (1-2 sentences), Read then Write DashboardOverview.tsx (once), build.
+index.css is pre-generated with the shared design system. Do NOT edit it.
+src/config/ai-features.ts is editable — set AI_PHOTO_SCAN['Entity'] = true to enable photo scan in dialogs.
+NEVER use Bash cat/echo/heredoc for file operations — always use Read/Write/Edit tools.
+
+Generated 47 scaffold files:
+  - src/App.tsx
+  - src/components/ErrorBoundary.tsx
+  - src/components/Layout.tsx
+  - src/components/PageShell.tsx
+  - src/components/TopBar.tsx
+  - src/components/ActionsBar.tsx
+  - src/pages/DashboardOverview.tsx
+  - src/components/ConfirmDialog.tsx
+  - src/components/ActionInputDialog.tsx
+  - src/components/StatCard.tsx
+  - src/components/IntentWizardShell.tsx
+  - src/components/EntitySelectStep.tsx
+  - src/components/BudgetTracker.tsx
+  - src/components/StatusBadge.tsx
+  - src/components/WorkflowPlaceholders.tsx
+  - src/index.css
+  - src/lib/ai.ts
+  - src/lib/chat-context.ts
+  - src/lib/actions-agent.ts
+  - src/context/ActionsContext.tsx
+  - src/components/ChatWidget.tsx
+  - src/components/VersionCheck.tsx
+  - src/config/ai-features.ts
+  - src/lib/formatters.ts
+  - src/hooks/useDashboardData.ts
+  - src/types/enriched.ts
+  - src/lib/enrich.ts
+  - src/pages/KundenverwaltungPage.tsx
+  - src/components/dialogs/KundenverwaltungDialog.tsx
+  - src/components/dialogs/KundenverwaltungViewDialog.tsx
+  - src/pages/KatzenverwaltungPage.tsx
+  - src/components/dialogs/KatzenverwaltungDialog.tsx
+  - src/components/dialogs/KatzenverwaltungViewDialog.tsx
+  - src/pages/ZimmerverwaltungPage.tsx
+  - src/components/dialogs/ZimmerverwaltungDialog.tsx
+  - src/components/dialogs/ZimmerverwaltungViewDialog.tsx
+  - src/pages/LeistungsverwaltungPage.tsx
+  - src/components/dialogs/LeistungsverwaltungDialog.tsx
+  - src/components/dialogs/LeistungsverwaltungViewDialog.tsx
+  - src/pages/BuchungsverwaltungPage.tsx
+  - src/components/dialogs/BuchungsverwaltungDialog.tsx
+  - src/components/dialogs/BuchungsverwaltungViewDialog.tsx
+  - src/pages/GesundheitsprotokollPage.tsx
+  - src/components/dialogs/GesundheitsprotokollDialog.tsx
+  - src/components/dialogs/GesundheitsprotokollViewDialog.tsx
+  - src/pages/AdminPage.tsx
+  - src/components/dialogs/BulkEditDialog.tsx
+
+## src/types/app.ts
+```
+// AUTOMATICALLY GENERATED TYPES - DO NOT EDIT
+
+export type LookupValue = { key: string; label: string };
+export type GeoLocation = { lat: number; long: number; info?: string };
+
+export interface Kundenverwaltung {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    nachname?: string;
+    email?: string;
+    telefon?: string;
+    strasse?: string;
+    hausnummer?: string;
+    plz?: string;
+    ort?: string;
+    notfall_vorname?: string;
+    notfall_nachname?: string;
+    notfall_telefon?: string;
+    anmerkungen?: string;
+    vorname?: string;
+  };
+}
+
+export interface Katzenverwaltung {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    besitzer?: string; // applookup -> URL zu 'Kundenverwaltung' Record
+    katze_name?: string;
+    rasse?: string;
+    geburtsdatum?: string; // Format: YYYY-MM-DD oder ISO String
+    geschlecht?: LookupValue;
+    farbe?: string;
+    kastriert?: boolean;
+    impfstatus?: LookupValue[];
+    impfpass_foto?: string;
+    tierarzt_vorname?: string;
+    tierarzt_nachname?: string;
+    tierarzt_telefon?: string;
+    medikamente?: string;
+    allergien?: string;
+    fuetterung?: string;
+    verhalten?: string;
+    katze_foto?: string;
+  };
+}
+
+export interface Zimmerverwaltung {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    zimmer_name?: string;
+    zimmer_typ?: LookupValue;
+    kapazitaet?: number;
+    tagespreis?: number;
+    beschreibung?: string;
+    ausstattung?: LookupValue[];
+    zimmer_status?: LookupValue;
+    zimmer_foto?: string;
+  };
+}
+
+export interface Leistungsverwaltung {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    leistung_name?: string;
+    leistung_beschreibung?: string;
+    preis?: number;
+    preiseinheit?: LookupValue;
+    leistung_kategorie?: LookupValue;
+  };
+}
+
+export interface Buchungsverwaltung {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    buchungsnummer?: string;
+    buchungsstatus?: LookupValue;
+    anreise?: string; // Format: YYYY-MM-DD oder ISO String
+    abreise?: string; // Format: YYYY-MM-DD oder ISO String
+    kunde?: string; // applookup -> URL zu 'Kundenverwaltung' Record
+    katzen?: string; // applookup -> URL zu 'Katzenverwaltung' Record
+    zimmer?: string; // applookup -> URL zu 'Zimmerverwaltung' Record
+    zusatzleistungen?: string; // applookup -> URL zu 'Leistungsverwaltung' Record
+    gesamtpreis?: number;
+    anzahlung?: number;
+    zahlungsstatus?: LookupValue;
+    buchungshinweise?: string;
+  };
+}
+
+export interface Gesundheitsprotokoll {
+  record_id: string;
+  createdat: string;
+  updatedat: string | null;
+  fields: {
+    buchung?: string; // applookup -> URL zu 'Buchungsverwaltung' Record
+    katze?: string; // applookup -> URL zu 'Katzenverwaltung' Record
+    protokoll_datum?: string; // Format: YYYY-MM-DD oder ISO String
+    fressverhalten?: LookupValue;
+    aktivitaet?: LookupValue;
+    befinden?: LookupValue;
+    medikamente_verabreicht?: boolean;
+    medikamente_notiz?: string;
+    beobachtungen?: string;
+    protokoll_foto?: string;
+  };
+}
+
+export const APP_IDS = {
+  KUNDENVERWALTUNG: '69e4c4c98eb47c71ad1956f9',
+  KATZENVERWALTUNG: '69e4c4d0b9f510e8ee94ecc0',
+  ZIMMERVERWALTUNG: '69e4c4d1c6f3ba44887a782b',
+  LEISTUNGSVERWALTUNG: '69e4c4d20db815a323b93354',
+  BUCHUNGSVERWALTUNG: '69e4c4d3d0b075a7e61dc8ac',
+  GESUNDHEITSPROTOKOLL: '69e4c4d4bb4e3a7690ac9854',
+} as const;
+
+
+export const LOOKUP_OPTIONS: Record<string, Record<string, {key: string, label: string}[]>> = {
+  'katzenverwaltung': {
+    geschlecht: [{ key: "weiblich", label: "Weiblich" }, { key: "maennlich", label: "Männlich" }, { key: "unbekannt", label: "Unbekannt" }],
+    impfstatus: [{ key: "tollwut", label: "Tollwut" }, { key: "katzenseuche", label: "Katzenseuche" }, { key: "katzenschnupfen", label: "Katzenschnupfen" }, { key: "leukose", label: "Leukose" }, { key: "sonstige", label: "Sonstige" }],
+  },
+  'zimmerverwaltung': {
+    zimmer_typ: [{ key: "einzelzimmer", label: "Einzelzimmer" }, { key: "doppelzimmer", label: "Doppelzimmer" }, { key: "suite", label: "Suite" }, { key: "freigehege", label: "Freigehege" }],
+    ausstattung: [{ key: "kletterbaum", label: "Kletterbaum" }, { key: "fensterplatz", label: "Fensterplatz" }, { key: "kuschelhoehle", label: "Kuschelhöhle" }, { key: "spielzeug", label: "Spielzeug" }, { key: "heizung", label: "Heizung" }, { key: "kamera", label: "Kameraüberwachung" }, { key: "freigehege_zugang", label: "Freigehege-Zugang" }],
+    zimmer_status: [{ key: "verfuegbar", label: "Verfügbar" }, { key: "belegt", label: "Belegt" }, { key: "reinigung", label: "In Reinigung" }, { key: "gesperrt", label: "Gesperrt" }],
+  },
+  'leistungsverwaltung': {
+    preiseinheit: [{ key: "pro_tag", label: "Pro Tag" }, { key: "pro_sitzung", label: "Pro Sitzung" }, { key: "einmalig", label: "Einmalig" }, { key: "pro_woche", label: "Pro Woche" }],
+    leistung_kategorie: [{ key: "pflege", label: "Pflege" }, { key: "tierarzt", label: "Tierarzt" }, { key: "spielen", label: "Spielen & Beschäftigung" }, { key: "transport", label: "Transport" }, { key: "sonstiges", label: "Sonstiges" }],
+  },
+  'buchungsverwaltung': {
+    buchungsstatus: [{ key: "anfrage", label: "Anfrage" }, { key: "bestaetigt", label: "Bestätigt" }, { key: "eingecheckt", label: "Eingecheckt" }, { key: "ausgecheckt", label: "Ausgecheckt" }, { key: "storniert", label: "Storniert" }],
+    zahlungsstatus: [{ key: "offen", label: "Offen" }, { key: "anzahlung_erhalten", label: "Anzahlung erhalten" }, { key: "bezahlt", label: "Vollständig bezahlt" }, { key: "erstattet", label: "Erstattet" }],
+  },
+  'gesundheitsprotokoll': {
+    fressverhalten: [{ key: "sehr_gut", label: "Sehr gut" }, { key: "gut", label: "Gut" }, { key: "maessig", label: "Mäßig" }, { key: "schlecht", label: "Schlecht" }, { key: "verweigert", label: "Verweigert" }],
+    aktivitaet: [{ key: "sehr_aktiv", label: "Sehr aktiv" }, { key: "normal", label: "Normal" }, { key: "ruhig", label: "Ruhig" }, { key: "apathisch", label: "Apathisch" }],
+    befinden: [{ key: "sehr_gut", label: "Sehr gut" }, { key: "gut", label: "Gut" }, { key: "auffaellig", label: "Auffällig" }, { key: "krank", label: "Krank" }],
+  },
+};
+
+export const FIELD_TYPES: Record<string, Record<string, string>> = {
+  'kundenverwaltung': {
+    'nachname': 'string/text',
+    'email': 'string/email',
+    'telefon': 'string/tel',
+    'strasse': 'string/text',
+    'hausnummer': 'string/text',
+    'plz': 'string/text',
+    'ort': 'string/text',
+    'notfall_vorname': 'string/text',
+    'notfall_nachname': 'string/text',
+    'notfall_telefon': 'string/tel',
+    'anmerkungen': 'string/textarea',
+    'vorname': 'string/text',
+  },
+  'katzenverwaltung': {
+    'besitzer': 'applookup/select',
+    'katze_name': 'string/text',
+    'rasse': 'string/text',
+    'geburtsdatum': 'date/date',
+    'geschlecht': 'lookup/radio',
+    'farbe': 'string/text',
+    'kastriert': 'bool',
+    'impfstatus': 'multiplelookup/checkbox',
+    'impfpass_foto': 'file',
+    'tierarzt_vorname': 'string/text',
+    'tierarzt_nachname': 'string/text',
+    'tierarzt_telefon': 'string/tel',
+    'medikamente': 'string/textarea',
+    'allergien': 'string/textarea',
+    'fuetterung': 'string/textarea',
+    'verhalten': 'string/textarea',
+    'katze_foto': 'file',
+  },
+  'zimmerverwaltung': {
+    'zimmer_name': 'string/text',
+    'zimmer_typ': 'lookup/select',
+    'kapazitaet': 'number',
+    'tagespreis': 'number',
+    'beschreibung': 'string/textarea',
+    'ausstattung': 'multiplelookup/checkbox',
+    'zimmer_status': 'lookup/radio',
+    'zimmer_foto': 'file',
+  },
+  'leistungsverwaltung': {
+    'leistung_name': 'string/text',
+    'leistung_beschreibung': 'string/textarea',
+    'preis': 'number',
+    'preiseinheit': 'lookup/radio',
+    'leistung_kategorie': 'lookup/select',
+  },
+  'buchungsverwaltung': {
+    'buchungsnummer': 'string/text',
+    'buchungsstatus': 'lookup/select',
+    'anreise': 'date/datetimeminute',
+    'abreise': 'date/datetimeminute',
+    'kunde': 'applookup/select',
+    'katzen': 'applookup/select',
+    'zimmer': 'applookup/select',
+    'zusatzleistungen': 'applookup/select',
+    'gesamtpreis': 'number',
+    'anzahlung': 'number',
+    'zahlungsstatus': 'lookup/select',
+    'buchungshinweise': 'string/textarea',
+  },
+  'gesundheitsprotokoll': {
+    'buchung': 'applookup/select',
+    'katze': 'applookup/select',
+    'protokoll_datum': 'date/date',
+    'fressverhalten': 'lookup/radio',
+    'aktivitaet': 'lookup/radio',
+    'befinden': 'lookup/radio',
+    'medikamente_verabreicht': 'bool',
+    'medikamente_notiz': 'string/textarea',
+    'beobachtungen': 'string/textarea',
+    'protokoll_foto': 'file',
+  },
+};
+
+type StripLookup<T> = {
+  [K in keyof T]: T[K] extends LookupValue | undefined ? string | LookupValue | undefined
+    : T[K] extends LookupValue[] | undefined ? string[] | LookupValue[] | undefined
+    : T[K];
+};
+
+// Helper Types for creating new records (lookup fields as plain strings for API)
+export type CreateKundenverwaltung = StripLookup<Kundenverwaltung['fields']>;
+export type CreateKatzenverwaltung = StripLookup<Katzenverwaltung['fields']>;
+export type CreateZimmerverwaltung = StripLookup<Zimmerverwaltung['fields']>;
+export type CreateLeistungsverwaltung = StripLookup<Leistungsverwaltung['fields']>;
+export type CreateBuchungsverwaltung = StripLookup<Buchungsverwaltung['fields']>;
+export type CreateGesundheitsprotokoll = StripLookup<Gesundheitsprotokoll['fields']>;
+```
+
+## src/services/livingAppsService.ts
+```
+// AUTOMATICALLY GENERATED SERVICE
+import { APP_IDS, LOOKUP_OPTIONS, FIELD_TYPES } from '@/types/app';
+import type { Kundenverwaltung, Katzenverwaltung, Zimmerverwaltung, Leistungsverwaltung, Buchungsverwaltung, Gesundheitsprotokoll, CreateKundenverwaltung, CreateKatzenverwaltung, CreateZimmerverwaltung, CreateLeistungsverwaltung, CreateBuchungsverwaltung, CreateGesundheitsprotokoll } from '@/types/app';
+
+// Base Configuration
+const API_BASE_URL = 'https://my.living-apps.de/rest';
+
+// --- HELPER FUNCTIONS ---
+export function extractRecordId(url: unknown): string | null {
+  if (!url) return null;
+  if (typeof url !== 'string') return null;
+  const match = url.match(/([a-f0-9]{24})$/i);
+  return match ? match[1] : null;
+}
+
+export function createRecordUrl(appId: string, recordId: string): string {
+  return `https://my.living-apps.de/rest/apps/${appId}/records/${recordId}`;
+}
+
+async function callApi(method: string, endpoint: string, data?: any) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',  // Nutze Session Cookies für Auth
+    body: data ? JSON.stringify(data) : undefined
+  });
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) window.dispatchEvent(new Event('auth-error'));
+    throw new Error(await response.text());
+  }
+  // DELETE returns often empty body or simple status
+  if (method === 'DELETE') return true;
+  return response.json();
+}
+
+/** Upload a file to LivingApps. Returns the file URL for use in record fields. */
+export async function uploadFile(file: File | Blob, filename?: string): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', file, filename ?? (file instanceof File ? file.name : 'upload'));
+  const res = await fetch(`${API_BASE_URL}/files`, {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+  });
+  if (!res.ok) {
+    if (res.status === 401 || res.status === 403) window.dispatchEvent(new Event('auth-error'));
+    throw new Error(`File upload failed: ${res.status}`);
+  }
+  const data = await res.json();
+  return data.url;
+}
+
+function enrichLookupFields<T extends { fields: Record<string, unknown> }>(
+  records: T[], entityKey: string
+): T[] {
+  const opts = LOOKUP_OPTIONS[entityKey];
+  if (!opts) return records;
+  return records.map(r => {
+    const fields = { ...r.fields };
+    for (const [fieldKey, options] of Object.entries(opts)) {
+      const val = fields[fieldKey];
+      if (typeof val === 'string') {
+        const m = options.find(o => o.key === val);
+        fields[fieldKey] = m ?? { key: val, label: val };
+      } else if (Array.isArray(val)) {
+        fields[fieldKey] = val.map(v => {
+          if (typeof v === 'string') {
+            const m = options.find(o => o.key === v);
+            return m ?? { key: v, label: v };
+          }
+          return v;
+        });
+      }
+    }
+    return { ...r, fields } as T;
+  });
+}
+
+/** Normalize fields for API writes: strip lookup objects to keys, fix date formats. */
+export function cleanFieldsForApi(
+  fields: Record<string, unknown>,
+  entityKey: string
+): Record<string, unknown> {
+  const clean: Record<string, unknown> = { ...fields };
+  for (const [k, v] of Object.entries(clean)) {
+    if (v && typeof v === 'object' && !Array.isArray(v) && 'key' in v) clean[k] = (v as any).key;
+    if (Array.isArray(v)) clean[k] = v.map((item: any) => item && typeof item === 'object' && 'key' in item ? item.key : item);
+  }
+  const types = FIELD_TYPES[entityKey];
+  if (types) {
+    for (const [k, ft] of Object.entries(types)) {
+      if (!(k in clean)) continue;
+      const val = clean[k];
+      // applookup fields: undefined → null (clear single reference)
+      if ((ft === 'applookup/select' || ft === 'applookup/choice') && val === undefined) { clean[k] = null; continue; }
+      // multipleapplookup fields: undefined/null → [] (clear multi reference)
+      if ((ft === 'multipleapplookup/select' || ft === 'multipleapplookup/choice') && (val === undefined || val === null)) { clean[k] = []; continue; }
+      // lookup fields: undefined → null (clear single lookup)
+      if ((ft.startsWith('lookup/')) && val === undefined) { clean[k] = null; continue; }
+      // multiplelookup fields: undefined/null → [] (clear multi lookup)
+      if ((ft.startsWith('multiplelookup/')) && (val === undefined || val === null)) { clean[k] = []; continue; }
+      if (typeof val !== 'string' || !val) continue;
+      if (ft === 'date/datetimeminute') clean[k] = val.slice(0, 16);
+      else if (ft === 'date/date') clean[k] = val.slice(0, 10);
+    }
+  }
+  return clean;
+}
+
+let _cachedUserProfile: Record<string, unknown> | null = null;
+
+export async function getUserProfile(): Promise<Record<string, unknown>> {
+  if (_cachedUserProfile) return _cachedUserProfile;
+  const raw = await callApi('GET', '/user');
+  const skip = new Set(['id', 'image', 'lang', 'gender', 'title', 'fax', 'menus', 'initials']);
+  const data: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (v != null && !skip.has(k)) data[k] = v;
+  }
+  _cachedUserProfile = data;
+  return data;
+}
+
+export interface HeaderProfile {
+  firstname: string;
+  surname: string;
+  email: string;
+  image: string | null;
+  company: string | null;
+}
+
+let _cachedHeaderProfile: HeaderProfile | null = null;
+
+export async function getHeaderProfile(): Promise<HeaderProfile> {
+  if (_cachedHeaderProfile) return _cachedHeaderProfile;
+  const raw = await callApi('GET', '/user');
+  _cachedHeaderProfile = {
+    firstname: raw.firstname ?? '',
+    surname: raw.surname ?? '',
+    email: raw.email ?? '',
+    image: raw.image ?? null,
+    company: raw.company ?? null,
+  };
+  return _cachedHeaderProfile;
+}
+
+export interface AppGroupInfo {
+  id: string;
+  name: string;
+  image: string | null;
+  createdat: string;
+  /** Resolved link: /objects/{id}/ if the dashboard exists, otherwise /gateway/apps/{firstAppId}?template=list_page */
+  href: string;
+}
+
+let _cachedAppGroups: AppGroupInfo[] | null = null;
+
+export async function getAppGroups(): Promise<AppGroupInfo[]> {
+  if (_cachedAppGroups) return _cachedAppGroups;
+  const raw = await callApi('GET', '/appgroups?with=apps');
+  const groups: AppGroupInfo[] = Object.values(raw)
+    .map((g: any) => {
+      const firstAppId = Object.keys(g.apps ?? {})[0] ?? g.id;
+      return {
+        id: g.id,
+        name: g.name,
+        image: g.image ?? null,
+        createdat: g.createdat ?? '',
+        href: `/gateway/apps/${firstAppId}?template=list_page`,
+        _firstAppId: firstAppId,
+      };
+    })
+    .sort((a, b) => b.createdat.localeCompare(a.createdat));
+
+  // Check which appgroups have a deployed dashboard via app params
+  const paramChecks = await Promise.allSettled(
+    groups.map(g => callApi('GET', `/apps/${(g as any)._firstAppId}/params/la_page_header_additional_url`))
+  );
+  paramChecks.forEach((result, i) => {
+    if (result.status !== 'fulfilled' || !result.value) return;
+    const url = result.value.value;
+    if (typeof url === 'string' && url.length > 0) {
+      try { groups[i].href = new URL(url).pathname; } catch { groups[i].href = url; }
+    }
+  });
+
+  // Clean up internal helper property
+  groups.forEach(g => delete (g as any)._firstAppId);
+
+  _cachedAppGroups = groups;
+  return _cachedAppGroups;
+}
+
+export class LivingAppsService {
+  // --- KUNDENVERWALTUNG ---
+  static async getKundenverwaltung(): Promise<Kundenverwaltung[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.KUNDENVERWALTUNG}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Kundenverwaltung[];
+    return enrichLookupFields(records, 'kundenverwaltung');
+  }
+  static async getKundenverwaltungEntry(id: string): Promise<Kundenverwaltung | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.KUNDENVERWALTUNG}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Kundenverwaltung;
+    return enrichLookupFields([record], 'kundenverwaltung')[0];
+  }
+  static async createKundenverwaltungEntry(fields: CreateKundenverwaltung) {
+    return callApi('POST', `/apps/${APP_IDS.KUNDENVERWALTUNG}/records`, { fields: cleanFieldsForApi(fields as any, 'kundenverwaltung') });
+  }
+  static async updateKundenverwaltungEntry(id: string, fields: Partial<CreateKundenverwaltung>) {
+    return callApi('PATCH', `/apps/${APP_IDS.KUNDENVERWALTUNG}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'kundenverwaltung') });
+  }
+  static async deleteKundenverwaltungEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.KUNDENVERWALTUNG}/records/${id}`);
+  }
+
+  // --- KATZENVERWALTUNG ---
+  static async getKatzenverwaltung(): Promise<Katzenverwaltung[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.KATZENVERWALTUNG}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Katzenverwaltung[];
+    return enrichLookupFields(records, 'katzenverwaltung');
+  }
+  static async getKatzenverwaltungEntry(id: string): Promise<Katzenverwaltung | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.KATZENVERWALTUNG}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Katzenverwaltung;
+    return enrichLookupFields([record], 'katzenverwaltung')[0];
+  }
+  static async createKatzenverwaltungEntry(fields: CreateKatzenverwaltung) {
+    return callApi('POST', `/apps/${APP_IDS.KATZENVERWALTUNG}/records`, { fields: cleanFieldsForApi(fields as any, 'katzenverwaltung') });
+  }
+  static async updateKatzenverwaltungEntry(id: string, fields: Partial<CreateKatzenverwaltung>) {
+    return callApi('PATCH', `/apps/${APP_IDS.KATZENVERWALTUNG}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'katzenverwaltung') });
+  }
+  static async deleteKatzenverwaltungEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.KATZENVERWALTUNG}/records/${id}`);
+  }
+
+  // --- ZIMMERVERWALTUNG ---
+  static async getZimmerverwaltung(): Promise<Zimmerverwaltung[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.ZIMMERVERWALTUNG}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Zimmerverwaltung[];
+    return enrichLookupFields(records, 'zimmerverwaltung');
+  }
+  static async getZimmerverwaltungEntry(id: string): Promise<Zimmerverwaltung | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.ZIMMERVERWALTUNG}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Zimmerverwaltung;
+    return enrichLookupFields([record], 'zimmerverwaltung')[0];
+  }
+  static async createZimmerverwaltungEntry(fields: CreateZimmerverwaltung) {
+    return callApi('POST', `/apps/${APP_IDS.ZIMMERVERWALTUNG}/records`, { fields: cleanFieldsForApi(fields as any, 'zimmerverwaltung') });
+  }
+  static async updateZimmerverwaltungEntry(id: string, fields: Partial<CreateZimmerverwaltung>) {
+    return callApi('PATCH', `/apps/${APP_IDS.ZIMMERVERWALTUNG}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'zimmerverwaltung') });
+  }
+  static async deleteZimmerverwaltungEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.ZIMMERVERWALTUNG}/records/${id}`);
+  }
+
+  // --- LEISTUNGSVERWALTUNG ---
+  static async getLeistungsverwaltung(): Promise<Leistungsverwaltung[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.LEISTUNGSVERWALTUNG}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Leistungsverwaltung[];
+    return enrichLookupFields(records, 'leistungsverwaltung');
+  }
+  static async getLeistungsverwaltungEntry(id: string): Promise<Leistungsverwaltung | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.LEISTUNGSVERWALTUNG}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Leistungsverwaltung;
+    return enrichLookupFields([record], 'leistungsverwaltung')[0];
+  }
+  static async createLeistungsverwaltungEntry(fields: CreateLeistungsverwaltung) {
+    return callApi('POST', `/apps/${APP_IDS.LEISTUNGSVERWALTUNG}/records`, { fields: cleanFieldsForApi(fields as any, 'leistungsverwaltung') });
+  }
+  static async updateLeistungsverwaltungEntry(id: string, fields: Partial<CreateLeistungsverwaltung>) {
+    return callApi('PATCH', `/apps/${APP_IDS.LEISTUNGSVERWALTUNG}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'leistungsverwaltung') });
+  }
+  static async deleteLeistungsverwaltungEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.LEISTUNGSVERWALTUNG}/records/${id}`);
+  }
+
+  // --- BUCHUNGSVERWALTUNG ---
+  static async getBuchungsverwaltung(): Promise<Buchungsverwaltung[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.BUCHUNGSVERWALTUNG}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Buchungsverwaltung[];
+    return enrichLookupFields(records, 'buchungsverwaltung');
+  }
+  static async getBuchungsverwaltungEntry(id: string): Promise<Buchungsverwaltung | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.BUCHUNGSVERWALTUNG}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Buchungsverwaltung;
+    return enrichLookupFields([record], 'buchungsverwaltung')[0];
+  }
+  static async createBuchungsverwaltungEntry(fields: CreateBuchungsverwaltung) {
+    return callApi('POST', `/apps/${APP_IDS.BUCHUNGSVERWALTUNG}/records`, { fields: cleanFieldsForApi(fields as any, 'buchungsverwaltung') });
+  }
+  static async updateBuchungsverwaltungEntry(id: string, fields: Partial<CreateBuchungsverwaltung>) {
+    return callApi('PATCH', `/apps/${APP_IDS.BUCHUNGSVERWALTUNG}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'buchungsverwaltung') });
+  }
+  static async deleteBuchungsverwaltungEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.BUCHUNGSVERWALTUNG}/records/${id}`);
+  }
+
+  // --- GESUNDHEITSPROTOKOLL ---
+  static async getGesundheitsprotokoll(): Promise<Gesundheitsprotokoll[]> {
+    const data = await callApi('GET', `/apps/${APP_IDS.GESUNDHEITSPROTOKOLL}/records`);
+    const records = Object.entries(data).map(([id, rec]: [string, any]) => ({
+      record_id: id, ...rec
+    })) as Gesundheitsprotokoll[];
+    return enrichLookupFields(records, 'gesundheitsprotokoll');
+  }
+  static async getGesundheitsprotokollEntry(id: string): Promise<Gesundheitsprotokoll | undefined> {
+    const data = await callApi('GET', `/apps/${APP_IDS.GESUNDHEITSPROTOKOLL}/records/${id}`);
+    const record = { record_id: data.id, ...data } as Gesundheitsprotokoll;
+    return enrichLookupFields([record], 'gesundheitsprotokoll')[0];
+  }
+  static async createGesundheitsprotokollEntry(fields: CreateGesundheitsprotokoll) {
+    return callApi('POST', `/apps/${APP_IDS.GESUNDHEITSPROTOKOLL}/records`, { fields: cleanFieldsForApi(fields as any, 'gesundheitsprotokoll') });
+  }
+  static async updateGesundheitsprotokollEntry(id: string, fields: Partial<CreateGesundheitsprotokoll>) {
+    return callApi('PATCH', `/apps/${APP_IDS.GESUNDHEITSPROTOKOLL}/records/${id}`, { fields: cleanFieldsForApi(fields as any, 'gesundheitsprotokoll') });
+  }
+  static async deleteGesundheitsprotokollEntry(id: string) {
+    return callApi('DELETE', `/apps/${APP_IDS.GESUNDHEITSPROTOKOLL}/records/${id}`);
+  }
+
+}
+```
+
+## src/App.tsx
+```
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { ActionsProvider } from '@/context/ActionsContext';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Layout } from '@/components/Layout';
+import DashboardOverview from '@/pages/DashboardOverview';
+import AdminPage from '@/pages/AdminPage';
+import KundenverwaltungPage from '@/pages/KundenverwaltungPage';
+import KatzenverwaltungPage from '@/pages/KatzenverwaltungPage';
+import ZimmerverwaltungPage from '@/pages/ZimmerverwaltungPage';
+import LeistungsverwaltungPage from '@/pages/LeistungsverwaltungPage';
+import BuchungsverwaltungPage from '@/pages/BuchungsverwaltungPage';
+import GesundheitsprotokollPage from '@/pages/GesundheitsprotokollPage';
+// <custom:imports>
+// </custom:imports>
+
+export default function App() {
+  return (
+    <ErrorBoundary>
+      <HashRouter>
+        <ActionsProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<DashboardOverview />} />
+              <Route path="kundenverwaltung" element={<KundenverwaltungPage />} />
+              <Route path="katzenverwaltung" element={<KatzenverwaltungPage />} />
+              <Route path="zimmerverwaltung" element={<ZimmerverwaltungPage />} />
+              <Route path="leistungsverwaltung" element={<LeistungsverwaltungPage />} />
+              <Route path="buchungsverwaltung" element={<BuchungsverwaltungPage />} />
+              <Route path="gesundheitsprotokoll" element={<GesundheitsprotokollPage />} />
+              <Route path="admin" element={<AdminPage />} />
+              {/* <custom:routes> */}
+              {/* </custom:routes> */}
+            </Route>
+          </Routes>
+        </ActionsProvider>
+      </HashRouter>
+    </ErrorBoundary>
+  );
+}
+
+```
+
+## src/components/Layout.tsx
+```
+import { Outlet } from 'react-router-dom';
+import { IconAlertCircle, IconArrowBackUp, IconMenu2 } from '@tabler/icons-react';
+import { useState, useEffect } from 'react';
+import ChatWidget from '@/components/ChatWidget';
+import { ActionInputDialog } from '@/components/ActionInputDialog';
+import { TopBar } from '@/components/TopBar';
+import ActionsBar from '@/components/ActionsBar';
+import { useActions } from '@/context/ActionsContext';
+import { Button } from '@/components/ui/button';
+import { VersionCheck } from '@/components/VersionCheck';
+
+const APP_TITLE = 'Katzenpension Manager';
+
+const IS_EMBED = new URLSearchParams(window.location.search).has('embed') || window.navigator.userAgent.startsWith('LivingAppsMobile');
+
+export function Layout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { inputFormAction, inputFormOptions, submitActionInputs, cancelInputForm } = useActions();
+  const [authError, setAuthError] = useState(false);
+  useEffect(() => { document.title = APP_TITLE; }, []);
+  useEffect(() => {
+    const handler = () => setAuthError(true);
+    window.addEventListener('auth-error', handler);
+    return () => window.removeEventListener('auth-error', handler);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background">
+      {!IS_EMBED && (
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" style={{ height: 'var(--topbar-h)' }}>
+        <div className="flex items-center justify-between h-full px-4 lg:px-8">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              className="lg:hidden p-2 rounded-lg hover:bg-accent transition-colors"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
+              <IconMenu2 size={18} />
+            </button>
+            <svg className="hidden lg:block w-9 h-9 shrink-0" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.6162 33.9164L20.4429 36.4084C20.4429 36.4084 13.4064 39.5929 9.85984 41.6434C7.73514 42.8719 6.93751 43.762 7.68335 44.356C8.00045 44.6086 18.7719 52.7814 19.1375 53.0247C23.2398 55.7549 15.79 45.2036 15.79 45.2036C15.79 45.2036 26.3397 41.899 28.5944 39.281C30.8491 36.6629 28.9112 33.9164 28.9112 33.9164C28.9112 33.9164 33.0253 35.5016 33.1876 39.281C33.289 41.6444 30.466 46.5779 28.9632 50.3787C28.063 52.6557 27.6349 53.4537 28.5898 53.4582C28.9958 53.4601 43.3581 53.5103 43.7947 53.4582C46.5726 53.1267 36.1923 50.3787 36.1923 50.3787C36.1923 50.3787 40.934 43.8566 42.0571 39.7543C42.7914 37.072 40.4732 33.4431 40.4732 33.4431C40.4732 33.4431 50.6098 36.1253 51.4017 35.4942C52.1937 34.8631 49.026 26.6585 49.026 26.6585C49.026 26.6585 57 22.8756 57 21.4556C57 20.0356 49.171 16.4028 49.171 16.4028C49.171 16.4028 49.8179 9.14493 48.3924 8.35603C46.967 7.56713 36.672 11.996 36.672 11.996C36.672 11.996 31.7464 3.51825 28.8955 3.51825C26.0446 3.51825 20.5168 11.996 20.5168 11.996C20.5168 11.996 11.3306 7.25157 10.0635 7.88269C8.79641 8.51381 8.47964 16.4028 8.47964 16.4028C8.47964 16.4028 0 20.1818 0 21.6019C0 23.0219 8.9548 26.6585 8.9548 26.6585C8.9548 26.6585 6.10388 35.0209 7.21257 35.4942C8.32126 35.9676 18.6162 33.9164 18.6162 33.9164Z" fill="#FF5C00"/>
+              <path d="M39.2754 22.6432C39.2754 24.6087 35.038 28.5398 28.6918 28.5398C22.3457 28.5398 18.1083 24.7599 18.1083 22.6432C18.1083 20.5265 22.3457 16.2931 28.6918 16.2931C35.038 16.2931 39.2754 20.6777 39.2754 22.6432Z" fill="white"/>
+              <path d="M31.4755 16.5827C32.7516 16.8524 33.9029 17.2929 34.9052 17.8249C36.2586 18.8904 37.1287 20.5421 37.1288 22.3981C37.1288 24.6151 35.8885 26.5416 34.0643 27.5241C33.4073 27.7869 32.6982 28.0121 31.9413 28.1823C31.7334 28.2048 31.5223 28.2174 31.3085 28.2174C28.0946 28.2172 25.4891 25.612 25.4891 22.3981C25.4892 21.683 25.6183 20.9978 25.8544 20.3649C26.2591 20.989 26.9614 21.4029 27.7606 21.403C29.0148 21.4028 30.0311 20.3857 30.0311 19.1315C30.0311 18.2656 29.5467 17.5126 28.8339 17.1295C29.5848 16.7762 30.4236 16.5788 31.3085 16.5788C31.3643 16.5788 31.42 16.5811 31.4755 16.5827Z" fill="black"/>
+            </svg>
+            <span className="font-semibold text-sm truncate">{APP_TITLE}</span>
+          </div>
+          <TopBar />
+        </div>
+      </header>
+      )}
+
+      {!IS_EMBED && sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 lg:hidden"
+          style={{ top: 'var(--topbar-h)' }}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {!IS_EMBED && (
+      <aside
+        className={`
+          fixed left-0 z-40 w-72 bg-sidebar border-r border-sidebar-border overflow-hidden
+          transform transition-transform duration-200 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          lg:translate-x-0
+        `}
+        style={{ top: 'var(--topbar-h)', height: 'calc(100vh - var(--topbar-h))' }}
+      >
+        <div className="flex flex-col h-full">
+        <nav className="px-3 pt-4 space-y-0.5">
+          <a
+            href="/gateway/apps/69e4c4c98eb47c71ad1956f9?template=list_page"
+            className="flex items-center gap-2 px-4 py-2 rounded-2xl text-base transition-colors min-w-0 text-sidebar-foreground font-normal hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+          >
+            <IconArrowBackUp size={16} className="shrink-0" />
+            <span className="truncate">Zurück</span>
+          </a>
+        </nav>
+
+        <div className="mt-auto px-3 pb-4">
+          <div className="border-t border-sidebar-border pt-3">
+            <VersionCheck />
+          </div>
+        </div>
+        </div>
+      </aside>
+      )}
+
+      <div className={IS_EMBED ? "" : "lg:pl-72"} style={IS_EMBED ? undefined : { paddingTop: 'var(--topbar-h)' }}>
+        <main className={`max-w-screen-2xl ${IS_EMBED ? "p-2 lg:p-4" : "p-6 lg:p-8"}`}>
+          {!IS_EMBED && !authError && <ActionsBar />}
+          {authError ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-destructive/10 flex items-center justify-center">
+                <IconAlertCircle size={22} className="text-destructive" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-semibold text-foreground mb-1">Du bist nicht angemeldet.</h3>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => {
+                window.location.href = `${window.location.origin}/login.htm?cugCoUrl=${encodeURIComponent(window.location.href)}`;
+              }}>Anmelden</Button>
+            </div>
+          ) : (
+            <Outlet />
+          )}
+        </main>
+      </div>
+
+      {!IS_EMBED && <ChatWidget />}
+
+      {inputFormAction && inputFormAction.metadata?.input_schema && (
+        <ActionInputDialog
+          action={inputFormAction}
+          schema={inputFormAction.metadata.input_schema}
+          options={inputFormOptions}
+          onSubmit={(inputs, files) => submitActionInputs(inputFormAction, inputs, files)}
+          onCancel={cancelInputForm}
+        />
+      )}
+    </div>
+  );
+}
+
+```
+
+## src/hooks/useDashboardData.ts
+```
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import type { Kundenverwaltung, Katzenverwaltung, Zimmerverwaltung, Leistungsverwaltung, Buchungsverwaltung, Gesundheitsprotokoll } from '@/types/app';
+import { LivingAppsService } from '@/services/livingAppsService';
+
+export function useDashboardData() {
+  const [kundenverwaltung, setKundenverwaltung] = useState<Kundenverwaltung[]>([]);
+  const [katzenverwaltung, setKatzenverwaltung] = useState<Katzenverwaltung[]>([]);
+  const [zimmerverwaltung, setZimmerverwaltung] = useState<Zimmerverwaltung[]>([]);
+  const [leistungsverwaltung, setLeistungsverwaltung] = useState<Leistungsverwaltung[]>([]);
+  const [buchungsverwaltung, setBuchungsverwaltung] = useState<Buchungsverwaltung[]>([]);
+  const [gesundheitsprotokoll, setGesundheitsprotokoll] = useState<Gesundheitsprotokoll[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchAll = useCallback(async () => {
+    setError(null);
+    try {
+      const [kundenverwaltungData, katzenverwaltungData, zimmerverwaltungData, leistungsverwaltungData, buchungsverwaltungData, gesundheitsprotokollData] = await Promise.all([
+        LivingAppsService.getKundenverwaltung(),
+        LivingAppsService.getKatzenverwaltung(),
+        LivingAppsService.getZimmerverwaltung(),
+        LivingAppsService.getLeistungsverwaltung(),
+        LivingAppsService.getBuchungsverwaltung(),
+        LivingAppsService.getGesundheitsprotokoll(),
+      ]);
+      setKundenverwaltung(kundenverwaltungData);
+      setKatzenverwaltung(katzenverwaltungData);
+      setZimmerverwaltung(zimmerverwaltungData);
+      setLeistungsverwaltung(leistungsverwaltungData);
+      setBuchungsverwaltung(buchungsverwaltungData);
+      setGesundheitsprotokoll(gesundheitsprotokollData);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Fehler beim Laden der Daten'));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { fetchAll(); }, [fetchAll]);
+
+  // Silent background refresh (no loading state change → no flicker)
+  useEffect(() => {
+    async function silentRefresh() {
+      try {
+        const [kundenverwaltungData, katzenverwaltungData, zimmerverwaltungData, leistungsverwaltungData, buchungsverwaltungData, gesundheitsprotokollData] = await Promise.all([
+          LivingAppsService.getKundenverwaltung(),
+          LivingAppsService.getKatzenverwaltung(),
+          LivingAppsService.getZimmerverwaltung(),
+          LivingAppsService.getLeistungsverwaltung(),
+          LivingAppsService.getBuchungsverwaltung(),
+          LivingAppsService.getGesundheitsprotokoll(),
+        ]);
+        setKundenverwaltung(kundenverwaltungData);
+        setKatzenverwaltung(katzenverwaltungData);
+        setZimmerverwaltung(zimmerverwaltungData);
+        setLeistungsverwaltung(leistungsverwaltungData);
+        setBuchungsverwaltung(buchungsverwaltungData);
+        setGesundheitsprotokoll(gesundheitsprotokollData);
+      } catch {
+        // silently ignore — stale data is better than no data
+      }
+    }
+    function handleRefresh() { void silentRefresh(); }
+    window.addEventListener('dashboard-refresh', handleRefresh);
+    return () => window.removeEventListener('dashboard-refresh', handleRefresh);
+  }, []);
+
+  const kundenverwaltungMap = useMemo(() => {
+    const m = new Map<string, Kundenverwaltung>();
+    kundenverwaltung.forEach(r => m.set(r.record_id, r));
+    return m;
+  }, [kundenverwaltung]);
+
+  const katzenverwaltungMap = useMemo(() => {
+    const m = new Map<string, Katzenverwaltung>();
+    katzenverwaltung.forEach(r => m.set(r.record_id, r));
+    return m;
+  }, [katzenverwaltung]);
+
+  const zimmerverwaltungMap = useMemo(() => {
+    const m = new Map<string, Zimmerverwaltung>();
+    zimmerverwaltung.forEach(r => m.set(r.record_id, r));
+    return m;
+  }, [zimmerverwaltung]);
+
+  const leistungsverwaltungMap = useMemo(() => {
+    const m = new Map<string, Leistungsverwaltung>();
+    leistungsverwaltung.forEach(r => m.set(r.record_id, r));
+    return m;
+  }, [leistungsverwaltung]);
+
+  const buchungsverwaltungMap = useMemo(() => {
+    const m = new Map<string, Buchungsverwaltung>();
+    buchungsverwaltung.forEach(r => m.set(r.record_id, r));
+    return m;
+  }, [buchungsverwaltung]);
+
+  return { kundenverwaltung, setKundenverwaltung, katzenverwaltung, setKatzenverwaltung, zimmerverwaltung, setZimmerverwaltung, leistungsverwaltung, setLeistungsverwaltung, buchungsverwaltung, setBuchungsverwaltung, gesundheitsprotokoll, setGesundheitsprotokoll, loading, error, fetchAll, kundenverwaltungMap, katzenverwaltungMap, zimmerverwaltungMap, leistungsverwaltungMap, buchungsverwaltungMap };
+}
+```
+
+## src/types/enriched.ts
+```
+import type { Buchungsverwaltung, Gesundheitsprotokoll, Katzenverwaltung } from './app';
+
+export type EnrichedKatzenverwaltung = Katzenverwaltung & {
+  besitzerName: string;
+};
+
+export type EnrichedBuchungsverwaltung = Buchungsverwaltung & {
+  kundeName: string;
+  katzenName: string;
+  zimmerName: string;
+  zusatzleistungenName: string;
+};
+
+export type EnrichedGesundheitsprotokoll = Gesundheitsprotokoll & {
+  buchungName: string;
+  katzeName: string;
+};
+
+```
+
+## src/lib/enrich.ts
+```
+import type { EnrichedBuchungsverwaltung, EnrichedGesundheitsprotokoll, EnrichedKatzenverwaltung } from '@/types/enriched';
+import type { Buchungsverwaltung, Gesundheitsprotokoll, Katzenverwaltung, Kundenverwaltung, Leistungsverwaltung, Zimmerverwaltung } from '@/types/app';
+import { extractRecordId } from '@/services/livingAppsService';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function resolveDisplay(url: unknown, map: Map<string, any>, ...fields: string[]): string {
+  if (!url) return '';
+  const id = extractRecordId(url);
+  if (!id) return '';
+  const r = map.get(id);
+  if (!r) return '';
+  return fields.map(f => String(r.fields[f] ?? '')).join(' ').trim();
+}
+
+interface KatzenverwaltungMaps {
+  kundenverwaltungMap: Map<string, Kundenverwaltung>;
+}
+
+export function enrichKatzenverwaltung(
+  katzenverwaltung: Katzenverwaltung[],
+  maps: KatzenverwaltungMaps
+): EnrichedKatzenverwaltung[] {
+  return katzenverwaltung.map(r => ({
+    ...r,
+    besitzerName: resolveDisplay(r.fields.besitzer, maps.kundenverwaltungMap, 'vorname', 'nachname'),
+  }));
+}
+
+interface BuchungsverwaltungMaps {
+  kundenverwaltungMap: Map<string, Kundenverwaltung>;
+  katzenverwaltungMap: Map<string, Katzenverwaltung>;
+  zimmerverwaltungMap: Map<string, Zimmerverwaltung>;
+  leistungsverwaltungMap: Map<string, Leistungsverwaltung>;
+}
+
+export function enrichBuchungsverwaltung(
+  buchungsverwaltung: Buchungsverwaltung[],
+  maps: BuchungsverwaltungMaps
+): EnrichedBuchungsverwaltung[] {
+  return buchungsverwaltung.map(r => ({
+    ...r,
+    kundeName: resolveDisplay(r.fields.kunde, maps.kundenverwaltungMap, 'vorname', 'nachname'),
+    katzenName: resolveDisplay(r.fields.katzen, maps.katzenverwaltungMap, 'katze_name'),
+    zimmerName: resolveDisplay(r.fields.zimmer, maps.zimmerverwaltungMap, 'zimmer_name'),
+    zusatzleistungenName: resolveDisplay(r.fields.zusatzleistungen, maps.leistungsverwaltungMap, 'leistung_name'),
+  }));
+}
+
+interface GesundheitsprotokollMaps {
+  buchungsverwaltungMap: Map<string, Buchungsverwaltung>;
+  katzenverwaltungMap: Map<string, Katzenverwaltung>;
+}
+
+export function enrichGesundheitsprotokoll(
+  gesundheitsprotokoll: Gesundheitsprotokoll[],
+  maps: GesundheitsprotokollMaps
+): EnrichedGesundheitsprotokoll[] {
+  return gesundheitsprotokoll.map(r => ({
+    ...r,
+    buchungName: resolveDisplay(r.fields.buchung, maps.buchungsverwaltungMap, 'buchungsnummer'),
+    katzeName: resolveDisplay(r.fields.katze, maps.katzenverwaltungMap, 'katze_name'),
+  }));
+}
+
+```
+
+## src/lib/formatters.ts
+```
+import { format, parseISO } from 'date-fns';
+import { de } from 'date-fns/locale';
+
+export function formatDate(s: string | undefined) {
+  if (!s) return '—';
+  try { return format(parseISO(s), 'dd.MM.yyyy', { locale: de }); } catch { return s; }
+}
+
+export function formatCurrency(v: number | undefined) {
+  if (v == null) return '—';
+  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(v);
+}
+
+/** Extract display label from lookup/select or lookup/radio API response */
+export function displayLookup(val: unknown, options?: {key: string, label: string}[]): string {
+  if (val == null) return '—';
+  if (typeof val === 'object' && val !== null && 'label' in val) return String((val as Record<string, unknown>).label);
+  if (options && typeof val === 'string') { const m = options.find(o => o.key === val); if (m) return m.label; }
+  return String(val);
+}
+
+/** Extract labels from multiplelookup/checkbox API response */
+export function displayMultiLookup(val: unknown, options?: {key: string, label: string}[]): string {
+  if (val == null) return '—';
+  if (Array.isArray(val)) return val.map(v => {
+    if (typeof v === 'object' && v !== null && 'label' in v) return String((v as Record<string, unknown>).label);
+    if (options && typeof v === 'string') { const m = options.find(o => o.key === v); if (m) return m.label; }
+    return String(v);
+  }).join(', ') || '—';
+  return displayLookup(val, options);
+}
+
+/** Extract key from lookup value (handles both {key,label} objects and plain strings) */
+export function lookupKey(val: unknown): string | undefined {
+  if (val == null) return undefined;
+  if (typeof val === 'object' && val !== null && 'key' in val) return String((val as Record<string, unknown>).key);
+  if (typeof val === 'string') return val;
+  return undefined;
+}
+
+/** Extract keys from multiplelookup value */
+export function lookupKeys(val: unknown): string[] {
+  if (!Array.isArray(val)) return [];
+  return val.map(v => typeof v === 'object' && v !== null && 'key' in v ? String((v as Record<string, unknown>).key) : String(v));
+}
+```
+
+## src/lib/ai.ts
+```
+const AI_ENDPOINT = "https://my.living-apps.de/litellm/v1/chat/completions";
+const AI_MODEL = "default";
+
+export type ChatMessage = {
+  role: "system" | "user" | "assistant";
+  content: string | Array<{ type: string; [key: string]: unknown }>;
+};
+
+type CompletionOptions = {
+  temperature?: number;
+  max_tokens?: number;
+  top_p?: number;
+  stop?: string[];
+  response_format?: { type: string };
+};
+
+export async function chatCompletion(
+  messages: ChatMessage[],
+  options: CompletionOptions = {}
+): Promise<string> {
+  const res = await fetch(AI_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ model: AI_MODEL, messages, ...options }),
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`AI API ${res.status}: ${body}`);
+  }
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+export async function safeJsonCompletion<T = unknown>(
+  messages: ChatMessage[],
+  options: CompletionOptions = {}
+): Promise<T> {
+  const raw = await chatCompletion(messages, options);
+  const match = raw.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+  if (!match) throw new Error(`Expected JSON but got: ${raw.slice(0, 200)}`);
+  return JSON.parse(match[0]);
+}
+
+export async function withRetry<T>(fn: () => Promise<T>, maxAttempts = 3): Promise<T> {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (attempt === maxAttempts) throw err;
+      await new Promise((r) => setTimeout(r, 1000 * attempt));
+    }
+  }
+  throw new Error("unreachable");
+}
+
+// --- File encoding helpers ---
+
+const VISION_SUPPORTED_TYPES = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
+
+function needsImageConversion(file: File): boolean {
+  if (VISION_SUPPORTED_TYPES.has(file.type)) return false;
+  if (file.type.startsWith("image/")) return true;
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return ext === "heic" || ext === "heif";
+}
+
+function canvasConvertToJpeg(file: File): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { URL.revokeObjectURL(url); reject(new Error("Canvas not supported")); return; }
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) { reject(new Error("Image conversion failed")); return; }
+          const name = file.name.replace(/\.[^.]+$/, ".jpg");
+          resolve(new File([blob], name, { type: "image/jpeg" }));
+        },
+        "image/jpeg",
+        0.92,
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Browser cannot decode this image natively"));
+    };
+    img.src = url;
+  });
+}
+
+let heicToLoaded: Promise<void> | null = null;
+
+function loadHeicTo(): Promise<void> {
+  if (heicToLoaded) return heicToLoaded;
+  heicToLoaded = new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://my.living-apps.de/npm/heic-to/dist/iife/heic-to.js";
+    s.onload = () => resolve();
+    s.onerror = () => {
+      heicToLoaded = null;
+      reject(new Error("Failed to load HEIC converter"));
+    };
+    document.head.appendChild(s);
+  });
+  return heicToLoaded;
+}
+
+async function heicFallbackConvert(file: File): Promise<File> {
+  await loadHeicTo();
+  const HT = (window as any).HeicTo;
+  if (!HT) throw new Error("HEIC converter not available");
+  const blob: Blob = await HT({
+    blob: file,
+    type: "image/jpeg",
+    quality: 0.92,
+  });
+  const name = file.name.replace(/\.[^.]+$/, ".jpg");
+  return new File([blob], name, { type: "image/jpeg" });
+}
+
+async function convertToJpeg(file: File): Promise<File> {
+  try {
+    return await canvasConvertToJpeg(file);
+  } catch {
+    return await heicFallbackConvert(file);
+  }
+}
+
+function readExifFromJpeg(buf: ArrayBuffer): DataView | null {
+  const view = new DataView(buf);
+  if (view.getUint16(0) !== 0xFFD8) return null;
+  let offset = 2;
+  while (offset < view.byteLength - 4) {
+    const marker = view.getUint16(offset);
+    if (marker === 0xFFE1) {
+      const len = view.getUint16(offset + 2);
+      const exifStart = offset + 4;
+      if (exifStart + 6 <= buf.byteLength
+          && view.getUint32(exifStart) === 0x45786966
+          && view.getUint16(exifStart + 4) === 0x0000) {
+        return new DataView(buf, exifStart + 6, len - 8);
+      }
+    }
+    if ((marker & 0xFF00) !== 0xFF00) break;
+    offset += 2 + view.getUint16(offset + 2);
+  }
+  return null;
+}
+
+function readExifFromHeic(buf: ArrayBuffer): DataView | null {
+  const view = new DataView(buf);
+  for (let s = 0; s < view.byteLength - 14; s++) {
+    if (view.getUint32(s) === 0x45786966 && view.getUint16(s + 4) === 0x0000) {
+      const t = s + 6;
+      const bo = view.getUint16(t);
+      if ((bo === 0x4949 || bo === 0x4D4D) && view.getUint16(t + 2, bo === 0x4949) === 42) {
+        return new DataView(buf, t);
+      }
+    }
+  }
+  return null;
+}
+
+function parseExifMeta(tiff: DataView): {
+  gps: { latitude: number; longitude: number } | null;
+  dateTime: string | null;
+} | null {
+  const len = tiff.byteLength;
+  if (len < 8) return null;
+  const le = tiff.getUint16(0) === 0x4949;
+  const g16 = (o: number) => o + 2 <= len ? tiff.getUint16(o, le) : 0;
+  const g32 = (o: number) => o + 4 <= len ? tiff.getUint32(o, le) : 0;
+  const rational = (o: number) => { const n = g32(o), d = g32(o + 4); return d ? n / d : 0; };
+  const ascii = (o: number, n: number) => {
+    let s = "";
+    for (let i = 0; i < n - 1 && o + i < len; i++) s += String.fromCharCode(tiff.getUint8(o + i));
+    return s;
+  };
+
+  const ifdOffset = g32(4);
+  if (!ifdOffset || ifdOffset + 2 > len) return null;
+  const count = g16(ifdOffset);
+  if (ifdOffset + 2 + count * 12 > len) return null;
+
+  let gpsOffset = 0, exifIfdOffset = 0, ifd0DateTime = "";
+  for (let i = 0; i < count; i++) {
+    const entry = ifdOffset + 2 + i * 12;
+    const tag = g16(entry);
+    if (tag === 0x8825) gpsOffset = g32(entry + 8);
+    if (tag === 0x8769) exifIfdOffset = g32(entry + 8);
+    if (tag === 0x0132) {
+      const cnt = g32(entry + 4);
+      const off = g32(entry + 8);
+      if (cnt >= 19 && off + cnt <= len) ifd0DateTime = ascii(off, cnt);
+    }
+  }
+
+  let dateTime: string | null = null;
+  if (exifIfdOffset && exifIfdOffset + 2 <= len) {
+    const exifCount = g16(exifIfdOffset);
+    if (exifIfdOffset + 2 + exifCount * 12 <= len) {
+      for (let i = 0; i < exifCount; i++) {
+        const entry = exifIfdOffset + 2 + i * 12;
+        if (g16(entry) === 0x9003) {
+          const cnt = g32(entry + 4);
+          const off = g32(entry + 8);
+          if (cnt >= 19 && off + cnt <= len) dateTime = ascii(off, cnt);
+          break;
+        }
+      }
+    }
+  }
+  if (!dateTime && ifd0DateTime) dateTime = ifd0DateTime;
+
+  let gps: { latitude: number; longitude: number } | null = null;
+  if (gpsOffset && gpsOffset + 2 <= len) {
+    const gpsCount = g16(gpsOffset);
+    if (gpsOffset + 2 + gpsCount * 12 <= len) {
+      let latRef = "", lngRef = "";
+      let latOff = 0, lngOff = 0;
+      for (let i = 0; i < gpsCount; i++) {
+        const entry = gpsOffset + 2 + i * 12;
+        const tag = g16(entry);
+        if (tag === 1) latRef = String.fromCharCode(tiff.getUint8(entry + 8));
+        if (tag === 2) latOff = g32(entry + 8);
+        if (tag === 3) lngRef = String.fromCharCode(tiff.getUint8(entry + 8));
+        if (tag === 4) lngOff = g32(entry + 8);
+      }
+      if (latOff && lngOff && latOff + 24 <= len && lngOff + 24 <= len) {
+        const toDec = (off: number) => rational(off) + rational(off + 8) / 60 + rational(off + 16) / 3600;
+        let latitude = toDec(latOff);
+        let longitude = toDec(lngOff);
+        if (latRef === "S") latitude = -latitude;
+        if (lngRef === "W") longitude = -longitude;
+        gps = { latitude, longitude };
+      }
+    }
+  }
+
+  if (!gps && !dateTime) return null;
+  return { gps, dateTime };
+}
+
+export async function extractPhotoMeta(file: File): Promise<{
+  gps: { latitude: number; longitude: number } | null;
+  dateTime: string | null;
+} | null> {
+  try {
+    const buf = await file.arrayBuffer();
+    const tiff = readExifFromJpeg(buf) ?? readExifFromHeic(buf);
+    if (!tiff) return null;
+    return parseExifMeta(tiff);
+  } catch {
+    return null;
+  }
+}
+
+export async function reverseGeocode(lat: number, lng: number): Promise<string> {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=${navigator.language}`
+    );
+    const data = await res.json();
+    return data.display_name ?? "";
+  } catch {
+    return "";
+  }
+}
+
+export async function fileToDataUri(file: File): Promise<string> {
+  let f = file;
+  if (needsImageConversion(f)) {
+    f = await convertToJpeg(f);
+  }
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.readAsDataURL(f);
+  });
+}
+
+export async function urlToDataUri(url: string): Promise<string> {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error("Failed to encode file"));
+    reader.readAsDataURL(blob);
+  });
+}
+
+/** Convert a data URI back to a Blob (for file uploads) */
+export function dataUriToBlob(dataUri: string): Blob {
+  const [header, base64] = dataUri.split(',');
+  const mime = header.match(/:(.*?);/)?.[1] ?? 'application/octet-stream';
+  const bytes = atob(base64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+// --- High-level AI features ---
+
+export async function classify(
+  text: string,
+  categories: string[]
+): Promise<{ category: string; confidence: number }> {
+  return safeJsonCompletion([
+    {
+      role: "system",
+      content: [
+        "You are a classifier. Respond ONLY with valid JSON, nothing else.",
+        'Output format: {"category": "<one of the allowed categories>", "confidence": <0-1>}',
+        `Allowed categories: ${JSON.stringify(categories)}`,
+      ].join("\n"),
+    },
+    { role: "user", content: text },
+  ], { temperature: 0 });
+}
+
+export async function extract<T = Record<string, unknown>>(
+  text: string,
+  schemaDescription: string
+): Promise<T> {
+  return safeJsonCompletion([
+    {
+      role: "system",
+      content: [
+        "You are a data extraction engine. Respond ONLY with valid JSON matching the requested schema.",
+        "If a field cannot be determined from the input, use null.",
+        `Schema:\n${schemaDescription}`,
+      ].join("\n"),
+    },
+    { role: "user", content: text },
+  ], { temperature: 0 });
+}
+
+export async function summarize(
+  text: string,
+  options: { maxSentences?: number; language?: string } = {}
+): Promise<string> {
+  const { maxSentences = 3, language } = options;
+  const instructions = [
+    `Summarize the following text in at most ${maxSentences} sentences.`,
+    "Be concise and preserve key facts.",
+  ];
+  if (language) instructions.push(`Write the summary in ${language}.`);
+  return chatCompletion([
+    { role: "system", content: instructions.join(" ") },
+    { role: "user", content: text },
+  ]);
+}
+
+export async function translate(
+  text: string,
+  targetLanguage: string,
+  sourceLanguage?: string
+): Promise<string> {
+  const from = sourceLanguage ? ` from ${sourceLanguage}` : "";
+  return chatCompletion([
+    {
+      role: "system",
+      content: `Translate the following text${from} to ${targetLanguage}. Output ONLY the translation, nothing else.`,
+    },
+    { role: "user", content: text },
+  ]);
+}
+
+export async function analyzeImage(imageDataUri: string, prompt: string): Promise<string> {
+  return chatCompletion([
+    {
+      role: "user",
+      content: [
+        { type: "text", text: prompt },
+        { type: "image_url", image_url: { url: imageDataUri } },
+      ],
+    },
+  ]);
+}
+
+export async function analyzeDocument(fileDataUri: string, prompt: string): Promise<string> {
+  return chatCompletion([
+    {
+      role: "user",
+      content: [
+        { type: "text", text: prompt },
+        { type: "file", file: { file_data: fileDataUri } },
+      ],
+    },
+  ]);
+}
+
+export async function extractFromInput<T = Record<string, unknown>>(
+  schemaDescription: string,
+  options: {
+    dataUri?: string;
+    userText?: string;
+    photoContext?: string;
+    intent?: string;
+  } = {}
+): Promise<T> {
+  const { dataUri, userText, photoContext, intent } = options;
+  const hasMedia = !!dataUri;
+  const hasText = !!userText?.trim();
+  if (!hasMedia && !hasText) {
+    throw new Error("Either dataUri or userText must be provided");
+  }
+  const isImage = hasMedia && dataUri!.startsWith("data:image/");
+  const mediaLabel = isImage ? "image" : "document";
+  const systemParts: string[] = [];
+  if (hasMedia && hasText) {
+    systemParts.push(
+      "Extract structured data from the provided " + mediaLabel + " and the user's text input.",
+      "The user's text may contain data to extract, additional context about the " + mediaLabel + ", specific instructions, or any combination. Use ALL provided information to fill the schema fields."
+    );
+  } else if (hasMedia) {
+    systemParts.push("Extract structured data from the provided " + mediaLabel + ".");
+  } else {
+    systemParts.push(
+      "Extract structured data from the user's text input.",
+      "The text may contain raw data, structured information, notes, emails, descriptions, or instructions. Extract all relevant information that matches the schema fields."
+    );
+  }
+  systemParts.push("Respond ONLY with valid JSON matching the schema.");
+  systemParts.push("Use null for any field that cannot be determined.");
+  if (intent) {
+    systemParts.push(`<user-intent>${intent}</user-intent>`);
+  }
+  if (photoContext) {
+    systemParts.push(photoContext);
+  }
+  systemParts.push(`Schema:\n${schemaDescription}`);
+  const userContent: Array<{ type: string; [key: string]: unknown }> = [];
+  const textParts: string[] = [];
+  if (hasMedia) {
+    textParts.push("Extract the data from this " + mediaLabel + ".");
+  }
+  if (hasText) {
+    textParts.push(`<user-input>\n${userText!.trim()}\n</user-input>`);
+  }
+  userContent.push({ type: "text", text: textParts.join("\n") });
+  if (hasMedia) {
+    userContent.push(
+      isImage
+        ? { type: "image_url", image_url: { url: dataUri! } }
+        : { type: "file", file: { file_data: dataUri! } }
+    );
+  }
+  return safeJsonCompletion([
+    { role: "system", content: systemParts.join("\n") },
+    { role: "user", content: userContent },
+  ]);
+}
+
+/** @deprecated Use extractFromInput instead */
+export const extractFromPhoto = <T = Record<string, unknown>>(
+  dataUri: string,
+  schemaDescription: string,
+  photoContext?: string,
+  intent?: string
+) => extractFromInput<T>(schemaDescription, { dataUri, photoContext, intent });
+
+```
+
+## src/lib/chat-context.ts
+```
+export const CHAT_SYSTEM_PROMPT = `Du bist ein hilfreicher Assistent für diese App.\n\nDie App verwaltet folgende Daten:\n- Kundenverwaltung: Nachname, E-Mail-Adresse, Telefonnummer, Straße, Hausnummer, Postleitzahl, Ort, Notfallkontakt Vorname, Notfallkontakt Nachname, Notfallkontakt Telefon, Anmerkungen, Vorname\n- Katzenverwaltung: Besitzer (→ Kundenverwaltung), Name der Katze, Rasse, Geburtsdatum (Datum), Geschlecht, Farbe / Markierungen, Kastriert / Sterilisiert (ja/nein), Impfungen, Impfpass (Foto/Scan), Tierarzt Vorname, Tierarzt Nachname, Tierarzt Telefon, Medikamente, Allergien / Unverträglichkeiten, Fütterungsanweisungen, Verhalten & Besonderheiten, Foto der Katze\n- Zimmerverwaltung: Zimmername / -nummer, Zimmertyp, Kapazität (Anzahl Katzen) (Zahl), Tagespreis (€) (Zahl), Beschreibung, Ausstattung, Status, Foto des Zimmers\n- Leistungsverwaltung: Bezeichnung der Leistung, Beschreibung, Preis (€) (Zahl), Preiseinheit, Kategorie\n- Buchungsverwaltung: Buchungsnummer, Buchungsstatus, Anreisedatum (Datum), Abreisedatum (Datum), Kunde (→ Kundenverwaltung), Katze (→ Katzenverwaltung), Zimmer (→ Zimmerverwaltung), Zusatzleistung (→ Leistungsverwaltung), Gesamtpreis (€) (Zahl), Anzahlung (€) (Zahl), Zahlungsstatus, Besondere Hinweise zur Buchung\n- Gesundheitsprotokoll: Buchung (→ Buchungsverwaltung), Katze (→ Katzenverwaltung), Datum der Beobachtung (Datum), Fressverhalten, Aktivitätslevel, Allgemeines Befinden, Medikamente verabreicht (ja/nein), Notiz zu Medikamenten, Besondere Beobachtungen, Foto (optional)\n\nDu kannst:\n- Fragen zur App und den Daten beantworten\n- Hochgeladene Bilder und Dokumente analysieren\n- Texte zusammenfassen oder übersetzen\n- Bei der Dateneingabe helfen\n- Antworten mit Markdown formatieren (Tabellen, Code-Blöcke, Listen, Bilder via ![alt](url))\n\nAntworte kurz und präzise. Verwende die gleiche Sprache wie der Nutzer.`;
+
+```
+
+## src/config/ai-features.ts
+```
+/**
+ * AI feature toggles per entity.
+ * Set to true to show "Foto scannen" button in the create/edit dialog.
+ * The agent can change these values — all other AI files are pre-generated.
+ */
+
+export const AI_PHOTO_SCAN: Record<string, boolean> = {
+  Kundenverwaltung: true,
+  Katzenverwaltung: true,
+  Zimmerverwaltung: true,
+  Leistungsverwaltung: true,
+  Buchungsverwaltung: true,
+  Gesundheitsprotokoll: true,
+};
+
+/**
+ * Extract GPS coordinates from photo EXIF metadata and use them
+ * to provide location context (reverse geocoding) to the AI extraction
+ * and to auto-populate geo fields.
+ */
+export const AI_PHOTO_LOCATION: Record<string, boolean> = {
+  Kundenverwaltung: true,
+  Katzenverwaltung: true,
+  Zimmerverwaltung: true,
+  Leistungsverwaltung: true,
+  Buchungsverwaltung: true,
+  Gesundheitsprotokoll: true,
+};
+```
+
+## src/pages/AdminPage.tsx
+```
+import { useState, useMemo, useCallback } from 'react';
+import { useDashboardData } from '@/hooks/useDashboardData';
+import type { Kundenverwaltung, Katzenverwaltung, Zimmerverwaltung, Leistungsverwaltung, Buchungsverwaltung, Gesundheitsprotokoll } from '@/types/app';
+import { LivingAppsService, extractRecordId, cleanFieldsForApi } from '@/services/livingAppsService';
+import { KundenverwaltungDialog } from '@/components/dialogs/KundenverwaltungDialog';
+import { KundenverwaltungViewDialog } from '@/components/dialogs/KundenverwaltungViewDialog';
+import { KatzenverwaltungDialog } from '@/components/dialogs/KatzenverwaltungDialog';
+import { KatzenverwaltungViewDialog } from '@/components/dialogs/KatzenverwaltungViewDialog';
+import { ZimmerverwaltungDialog } from '@/components/dialogs/ZimmerverwaltungDialog';
+import { ZimmerverwaltungViewDialog } from '@/components/dialogs/ZimmerverwaltungViewDialog';
+import { LeistungsverwaltungDialog } from '@/components/dialogs/LeistungsverwaltungDialog';
+import { LeistungsverwaltungViewDialog } from '@/components/dialogs/LeistungsverwaltungViewDialog';
+import { BuchungsverwaltungDialog } from '@/components/dialogs/BuchungsverwaltungDialog';
+import { BuchungsverwaltungViewDialog } from '@/components/dialogs/BuchungsverwaltungViewDialog';
+import { GesundheitsprotokollDialog } from '@/components/dialogs/GesundheitsprotokollDialog';
+import { GesundheitsprotokollViewDialog } from '@/components/dialogs/GesundheitsprotokollViewDialog';
+import { BulkEditDialog } from '@/components/dialogs/BulkEditDialog';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { PageShell } from '@/components/PageShell';
+import { AI_PHOTO_SCAN, AI_PHOTO_LOCATION } from '@/config/ai-features';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table, TableBody, TableCell, TableHead,
+  TableHeader, TableRow,
+} from '@/components/ui/table';
+import {
+  Select, SelectContent, SelectItem,
+  SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { IconPencil, IconTrash, IconPlus, IconFilter, IconX, IconArrowsUpDown, IconArrowUp, IconArrowDown, IconSearch, IconCopy, IconFileText } from '@tabler/icons-react';
+import { format, parseISO } from 'date-fns';
+import { de } from 'date-fns/locale';
+
+function fmtDate(d?: string) {
+  if (!d) return '—';
+  try { return format(parseISO(d), 'dd.MM.yyyy', { locale: de }); } catch { return d; }
+}
+
+// Field metadata per entity for bulk edit and column filters
+const KUNDENVERWALTUNG_FIELDS = [
+  { key: 'nachname', label: 'Nachname', type: 'string/text' },
+  { key: 'email', label: 'E-Mail-Adresse', type: 'string/email' },
+  { key: 'telefon', label: 'Telefonnummer', type: 'string/tel' },
+  { key: 'strasse', label: 'Straße', type: 'string/text' },
+  { key: 'hausnummer', label: 'Hausnummer', type: 'string/text' },
+  { key: 'plz', label: 'Postleitzahl', type: 'string/text' },
+  { key: 'ort', label: 'Ort', type: 'string/text' },
+  { key: 'notfall_vorname', label: 'Notfallkontakt Vorname', type: 'string/text' },
+  { key: 'notfall_nachname', label: 'Notfallkontakt Nachname', type: 'string/text' },
+  { key: 'notfall_telefon', label: 'Notfallkontakt Telefon', type: 'string/tel' },
+  { key: 'anmerkungen', label: 'Anmerkungen', type: 'string/textarea' },
+  { key: 'vorname', label: 'Vorname', type: 'string/text' },
+];
+const KATZENVERWALTUNG_FIELDS = [
+  { key: 'besitzer', label: 'Besitzer', type: 'applookup/select', targetEntity: 'kundenverwaltung', targetAppId: 'KUNDENVERWALTUNG', displayField: 'nachname' },
+  { key: 'katze_name', label: 'Name der Katze', type: 'string/text' },
+  { key: 'rasse', label: 'Rasse', type: 'string/text' },
+  { key: 'geburtsdatum', label: 'Geburtsdatum', type: 'date/date' },
+  { key: 'geschlecht', label: 'Geschlecht', type: 'lookup/radio', options: [{ key: 'weiblich', label: 'Weiblich' }, { key: 'maennlich', label: 'Männlich' }, { key: 'unbekannt', label: 'Unbekannt' }] },
+  { key: 'farbe', label: 'Farbe / Markierungen', type: 'string/text' },
+  { key: 'kastriert', label: 'Kastriert / Sterilisiert', type: 'bool' },
+  { key: 'impfstatus', label: 'Impfungen', type: 'multiplelookup/checkbox', options: [{ key: 'tollwut', label: 'Tollwut' }, { key: 'katzenseuche', label: 'Katzenseuche' }, { key: 'katzenschnupfen', label: 'Katzenschnupfen' }, { key: 'leukose', label: 'Leukose' }, { key: 'sonstige', label: 'Sonstige' }] },
+  { key: 'impfpass_foto', label: 'Impfpass (Foto/Scan)', type: 'file' },
+  { key: 'tierarzt_vorname', label: 'Tierarzt Vorname', type: 'string/text' },
+  { key: 'tierarzt_nachname', label: 'Tierarzt Nachname', type: 'string/text' },
+  { key: 'tierarzt_telefon', label: 'Tierarzt Telefon', type: 'string/tel' },
+  { key: 'medikamente', label: 'Medikamente', type: 'string/textarea' },
+  { key: 'allergien', label: 'Allergien / Unverträglichkeiten', type: 'string/textarea' },
+  { key: 'fuetterung', label: 'Fütterungsanweisungen', type: 'string/textarea' },
+  { key: 'verhalten', label: 'Verhalten & Besonderheiten', type: 'string/textarea' },
+  { key: 'katze_foto', label: 'Foto der Katze', type: 'file' },
+];
+const ZIMMERVERWALTUNG_FIELDS = [
+  { key: 'zimmer_name', label: 'Zimmername / -nummer', type: 'string/text' },
+  { key: 'zimmer_typ', label: 'Zimmertyp', type: 'lookup/select', options: [{ key: 'einzelzimmer', label: 'Einzelzimmer' }, { key: 'doppelzimmer', label: 'Doppelzimmer' }, { key: 'suite', label: 'Suite' }, { key: 'freigehege', label: 'Freigehege' }] },
+  { key: 'kapazitaet', label: 'Kapazität (Anzahl Katzen)', type: 'number' },
+  { key: 'tagespreis', label: 'Tagespreis (€)', type: 'number' },
+  { key: 'beschreibung', label: 'Beschreibung', type: 'string/textarea' },
+  { key: 'ausstattung', label: 'Ausstattung', type: 'multiplelookup/checkbox', options: [{ key: 'kletterbaum', label: 'Kletterbaum' }, { key: 'fensterplatz', label: 'Fensterplatz' }, { key: 'kuschelhoehle', label: 'Kuschelhöhle' }, { key: 'spielzeug', label: 'Spielzeug' }, { key: 'heizung', label: 'Heizung' }, { key: 'kamera', label: 'Kameraüberwachung' }, { key: 'freigehege_zugang', label: 'Freigehege-Zugang' }] },
+  { key: 'zimmer_status', label: 'Status', type: 'lookup/radio', options: [{ key: 'verfuegbar', label: 'Verfügbar' }, { key: 'belegt', label: 'Belegt' }, { key: 'reinigung', label: 'In Reinigung' }, { key: 'gesperrt', label: 'Gesperrt' }] },
+  { key: 'zimmer_foto', label: 'Foto des Zimmers', type: 'file' },
+];
+const LEISTUNGSVERWALTUNG_FIELDS = [
+  { key: 'leistung_name', label: 'Bezeichnung der Leistung', type: 'string/text' },
+  { key: 'leistung_beschreibung', label: 'Beschreibung', type: 'string/textarea' },
+  { key: 'preis', label: 'Preis (€)', type: 'number' },
+  { key: 'preiseinheit', label: 'Preiseinheit', type: 'lookup/radio', options: [{ key: 'pro_tag', label: 'Pro Tag' }, { key: 'pro_sitzung', label: 'Pro Sitzung' }, { key: 'einmalig', label: 'Einmalig' }, { key: 'pro_woche', label: 'Pro Woche' }] },
+  { key: 'leistung_kategorie', label: 'Kategorie', type: 'lookup/select', options: [{ key: 'pflege', label: 'Pflege' }, { key: 'tierarzt', label: 'Tierarzt' }, { key: 'spielen', label: 'Spielen & Beschäftigung' }, { key: 'transport', label: 'Transport' }, { key: 'sonstiges', label: 'Sonstiges' }] },
+];
+const BUCHUNGSVERWALTUNG_FIELDS = [
+  { key: 'buchungsnummer', label: 'Buchungsnummer', type: 'string/text' },
+  { key: 'buchungsstatus', label: 'Buchungsstatus', type: 'lookup/select', options: [{ key: 'anfrage', label: 'Anfrage' }, { key: 'bestaetigt', label: 'Bestätigt' }, { key: 'eingecheckt', label: 'Eingecheckt' }, { key: 'ausgecheckt', label: 'Ausgecheckt' }, { key: 'storniert', label: 'Storniert' }] },
+  { key: 'anreise', label: 'Anreisedatum', type: 'date/datetimeminute' },
+  { key: 'abreise', label: 'Abreisedatum', type: 'date/datetimeminute' },
+  { key: 'kunde', label: 'Kunde', type: 'applookup/select', targetEntity: 'kundenverwaltung', targetAppId: 'KUNDENVERWALTUNG', displayField: 'nachname' },
+  { key: 'katzen', label: 'Katze', type: 'applookup/select', targetEntity: 'katzenverwaltung', targetAppId: 'KATZENVERWALTUNG', displayField: 'katze_name' },
+  { key: 'zimmer', label: 'Zimmer', type: 'applookup/select', targetEntity: 'zimmerverwaltung', targetAppId: 'ZIMMERVERWALTUNG', displayField: 'zimmer_name' },
+  { key: 'zusatzleistungen', label: 'Zusatzleistung', type: 'applookup/select', targetEntity: 'leistungsverwaltung', targetAppId: 'LEISTUNGSVERWALTUNG', displayField: 'leistung_name' },
+  { key: 'gesamtpreis', label: 'Gesamtpreis (€)', type: 'number' },
+  { key: 'anzahlung', label: 'Anzahlung (€)', type: 'number' },
+  { key: 'zahlungsstatus', label: 'Zahlungsstatus', type: 'lookup/select', options: [{ key: 'offen', label: 'Offen' }, { key: 'anzahlung_erhalten', label: 'Anzahlung erhalten' }, { key: 'bezahlt', label: 'Vollständig bezahlt' }, { key: 'erstattet', label: 'Erstattet' }] },
+  { key: 'buchungshinweise', label: 'Besondere Hinweise zur Buchung', type: 'string/textarea' },
+];
+const GESUNDHEITSPROTOKOLL_FIELDS = [
+  { key: 'buchung', label: 'Buchung', type: 'applookup/select', targetEntity: 'buchungsverwaltung', targetAppId: 'BUCHUNGSVERWALTUNG', displayField: 'buchungsnummer' },
+  { key: 'katze', label: 'Katze', type: 'applookup/select', targetEntity: 'katzenverwaltung', targetAppId: 'KATZENVERWALTUNG', displayField: 'katze_name' },
+  { key: 'protokoll_datum', label: 'Datum der Beobachtung', type: 'date/date' },
+  { key: 'fressverhalten', label: 'Fressverhalten', type: 'lookup/radio', options: [{ key: 'sehr_gut', label: 'Sehr gut' }, { key: 'gut', label: 'Gut' }, { key: 'maessig', label: 'Mäßig' }, { key: 'schlecht', label: 'Schlecht' }, { key: 'verweigert', label: 'Verweigert' }] },
+  { key: 'aktivitaet', label: 'Aktivitätslevel', type: 'lookup/radio', options: [{ key: 'sehr_aktiv', label: 'Sehr aktiv' }, { key: 'normal', label: 'Normal' }, { key: 'ruhig', label: 'Ruhig' }, { key: 'apathisch', label: 'Apathisch' }] },
+  { key: 'befinden', label: 'Allgemeines Befinden', type: 'lookup/radio', options: [{ key: 'sehr_gut', label: 'Sehr gut' }, { key: 'gut', label: 'Gut' }, { key: 'auffaellig', label: 'Auffällig' }, { key: 'krank', label: 'Krank' }] },
+  { key: 'medikamente_verabreicht', label: 'Medikamente verabreicht', type: 'bool' },
+  { key: 'medikamente_notiz', label: 'Notiz zu Medikamenten', type: 'string/textarea' },
+  { key: 'beobachtungen', label: 'Besondere Beobachtungen', type: 'string/textarea' },
+  { key: 'protokoll_foto', label: 'Foto (optional)', type: 'file' },
+];
+
+const ENTITY_TABS = [
+  { key: 'kundenverwaltung', label: 'Kundenverwaltung', pascal: 'Kundenverwaltung' },
+  { key: 'katzenverwaltung', label: 'Katzenverwaltung', pascal: 'Katzenverwaltung' },
+  { key: 'zimmerverwaltung', label: 'Zimmerverwaltung', pascal: 'Zimmerverwaltung' },
+  { key: 'leistungsverwaltung', label: 'Leistungsverwaltung', pascal: 'Leistungsverwaltung' },
+  { key: 'buchungsverwaltung', label: 'Buchungsverwaltung', pascal: 'Buchungsverwaltung' },
+  { key: 'gesundheitsprotokoll', label: 'Gesundheitsprotokoll', pascal: 'Gesundheitsprotokoll' },
+] as const;
+
+type EntityKey = typeof ENTITY_TABS[number]['key'];
+
+export default function AdminPage() {
+  const data = useDashboardData();
+  const { loading, error, fetchAll } = data;
+
+  const [activeTab, setActiveTab] = useState<EntityKey>('kundenverwaltung');
+  const [selectedIds, setSelectedIds] = useState<Record<EntityKey, Set<string>>>(() => ({
+    'kundenverwaltung': new Set(),
+    'katzenverwaltung': new Set(),
+    'zimmerverwaltung': new Set(),
+    'leistungsverwaltung': new Set(),
+    'buchungsverwaltung': new Set(),
+    'gesundheitsprotokoll': new Set(),
+  }));
+  const [filters, setFilters] = useState<Record<EntityKey, Record<string, string>>>(() => ({
+    'kundenverwaltung': {},
+    'katzenverwaltung': {},
+    'zimmerverwaltung': {},
+    'leistungsverwaltung': {},
+    'buchungsverwaltung': {},
+    'gesundheitsprotokoll': {},
+  }));
+  const [showFilters, setShowFilters] = useState(false);
+  const [dialogState, setDialogState] = useState<{ entity: EntityKey; record: any } | null>(null);
+  const [createEntity, setCreateEntity] = useState<EntityKey | null>(null);
+  const [deleteTargets, setDeleteTargets] = useState<{ entity: EntityKey; ids: string[] } | null>(null);
+  const [bulkEditOpen, setBulkEditOpen] = useState<EntityKey | null>(null);
+  const [viewState, setViewState] = useState<{ entity: EntityKey; record: any } | null>(null);
+  const [bulkLoading, setBulkLoading] = useState(false);
+  const [sortKey, setSortKey] = useState('');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+  const [search, setSearch] = useState('');
+
+  const getRecords = useCallback((entity: EntityKey) => {
+    switch (entity) {
+      case 'kundenverwaltung': return (data as any).kundenverwaltung as Kundenverwaltung[] ?? [];
+      case 'katzenverwaltung': return (data as any).katzenverwaltung as Katzenverwaltung[] ?? [];
+      case 'zimmerverwaltung': return (data as any).zimmerverwaltung as Zimmerverwaltung[] ?? [];
+      case 'leistungsverwaltung': return (data as any).leistungsverwaltung as Leistungsverwaltung[] ?? [];
+      case 'buchungsverwaltung': return (data as any).buchungsverwaltung as Buchungsverwaltung[] ?? [];
+      case 'gesundheitsprotokoll': return (data as any).gesundheitsprotokoll as Gesundheitsprotokoll[] ?? [];
+      default: return [];
+    }
+  }, [data]);
+
+  const getLookupLists = useCallback((entity: EntityKey) => {
+    const lists: Record<string, any[]> = {};
+    switch (entity) {
+      case 'katzenverwaltung':
+        lists.kundenverwaltungList = (data as any).kundenverwaltung ?? [];
+        break;
+      case 'buchungsverwaltung':
+        lists.kundenverwaltungList = (data as any).kundenverwaltung ?? [];
+        lists.katzenverwaltungList = (data as any).katzenverwaltung ?? [];
+        lists.zimmerverwaltungList = (data as any).zimmerverwaltung ?? [];
+        lists.leistungsverwaltungList = (data as any).leistungsverwaltung ?? [];
+        break;
+      case 'gesundheitsprotokoll':
+        lists.buchungsverwaltungList = (data as any).buchungsverwaltung ?? [];
+        lists.katzenverwaltungList = (data as any).katzenverwaltung ?? [];
+        break;
+    }
+    return lists;
+  }, [data]);
+
+  const getApplookupDisplay = useCallback((entity: EntityKey, fieldKey: string, url?: unknown) => {
+    if (!url) return '—';
+    const id = extractRecordId(url);
+    if (!id) return '—';
+    const lists = getLookupLists(entity);
+    void fieldKey; // ensure used for noUnusedParameters
+    if (entity === 'katzenverwaltung' && fieldKey === 'besitzer') {
+      const match = (lists.kundenverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.nachname ?? '—';
+    }
+    if (entity === 'buchungsverwaltung' && fieldKey === 'kunde') {
+      const match = (lists.kundenverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.nachname ?? '—';
+    }
+    if (entity === 'buchungsverwaltung' && fieldKey === 'katzen') {
+      const match = (lists.katzenverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.katze_name ?? '—';
+    }
+    if (entity === 'buchungsverwaltung' && fieldKey === 'zimmer') {
+      const match = (lists.zimmerverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.zimmer_name ?? '—';
+    }
+    if (entity === 'buchungsverwaltung' && fieldKey === 'zusatzleistungen') {
+      const match = (lists.leistungsverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.leistung_name ?? '—';
+    }
+    if (entity === 'gesundheitsprotokoll' && fieldKey === 'buchung') {
+      const match = (lists.buchungsverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.buchungsnummer ?? '—';
+    }
+    if (entity === 'gesundheitsprotokoll' && fieldKey === 'katze') {
+      const match = (lists.katzenverwaltungList ?? []).find((r: any) => r.record_id === id);
+      return match?.fields.katze_name ?? '—';
+    }
+    return String(url);
+  }, [getLookupLists]);
+
+  const getFieldMeta = useCallback((entity: EntityKey) => {
+    switch (entity) {
+      case 'kundenverwaltung': return KUNDENVERWALTUNG_FIELDS;
+      case 'katzenverwaltung': return KATZENVERWALTUNG_FIELDS;
+      case 'zimmerverwaltung': return ZIMMERVERWALTUNG_FIELDS;
+      case 'leistungsverwaltung': return LEISTUNGSVERWALTUNG_FIELDS;
+      case 'buchungsverwaltung': return BUCHUNGSVERWALTUNG_FIELDS;
+      case 'gesundheitsprotokoll': return GESUNDHEITSPROTOKOLL_FIELDS;
+      default: return [];
+    }
+  }, []);
+
+  const getFilteredRecords = useCallback((entity: EntityKey) => {
+    const records = getRecords(entity);
+    const s = search.toLowerCase();
+    const searched = !s ? records : records.filter((r: any) => {
+      return Object.values(r.fields).some((v: any) => {
+        if (v == null) return false;
+        if (Array.isArray(v)) return v.some((item: any) => typeof item === 'object' && item !== null && 'label' in item ? String((item as any).label).toLowerCase().includes(s) : String(item).toLowerCase().includes(s));
+        if (typeof v === 'object' && 'label' in (v as any)) return String((v as any).label).toLowerCase().includes(s);
+        return String(v).toLowerCase().includes(s);
+      });
+    });
+    const entityFilters = filters[entity] ?? {};
+    const fieldMeta = getFieldMeta(entity);
+    return searched.filter((r: any) => {
+      return fieldMeta.every((fm: any) => {
+        const fv = entityFilters[fm.key];
+        if (!fv || fv === '') return true;
+        const val = r.fields?.[fm.key];
+        if (fm.type === 'bool') {
+          if (fv === 'true') return val === true;
+          if (fv === 'false') return val !== true;
+          return true;
+        }
+        if (fm.type === 'lookup/select' || fm.type === 'lookup/radio') {
+          const label = val && typeof val === 'object' && 'label' in val ? val.label : '';
+          return String(label).toLowerCase().includes(fv.toLowerCase());
+        }
+        if (fm.type.includes('multiplelookup')) {
+          if (!Array.isArray(val)) return false;
+          return val.some((item: any) => String(item?.label ?? '').toLowerCase().includes(fv.toLowerCase()));
+        }
+        if (fm.type.includes('applookup')) {
+          const display = getApplookupDisplay(entity, fm.key, val);
+          return String(display).toLowerCase().includes(fv.toLowerCase());
+        }
+        return String(val ?? '').toLowerCase().includes(fv.toLowerCase());
+      });
+    });
+  }, [getRecords, filters, getFieldMeta, getApplookupDisplay, search]);
+
+  function toggleSort(key: string) {
+    if (sortKey === key) {
+      if (sortDir === 'asc') setSortDir('desc');
+      else { setSortKey(''); setSortDir('asc'); }
+    } else { setSortKey(key); setSortDir('asc'); }
+  }
+
+  function sortRecords<T extends { fields: Record<string, any> }>(recs: T[]): T[] {
+    if (!sortKey) return recs;
+    return [...recs].sort((a, b) => {
+      let va: any = a.fields[sortKey], vb: any = b.fields[sortKey];
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;
+      if (vb == null) return -1;
+      if (typeof va === 'object' && 'label' in va) va = va.label;
+      if (typeof vb === 'object' && 'label' in vb) vb = vb.label;
+      if (typeof va === 'number' && typeof vb === 'number') return sortDir === 'asc' ? va - vb : vb - va;
+      return sortDir === 'asc' ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+    });
+  }
+
+  const toggleSelect = useCallback((entity: EntityKey, id: string) => {
+    setSelectedIds(prev => {
+      const next = { ...prev, [entity]: new Set(prev[entity]) };
+      if (next[entity].has(id)) next[entity].delete(id);
+      else next[entity].add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAll = useCallback((entity: EntityKey) => {
+    const filtered = getFilteredRecords(entity);
+    setSelectedIds(prev => {
+      const allSelected = filtered.every((r: any) => prev[entity].has(r.record_id));
+      const next = { ...prev, [entity]: new Set(prev[entity]) };
+      if (allSelected) {
+        filtered.forEach((r: any) => next[entity].delete(r.record_id));
+      } else {
+        filtered.forEach((r: any) => next[entity].add(r.record_id));
+      }
+      return next;
+    });
+  }, [getFilteredRecords]);
+
+  const clearSelection = useCallback((entity: EntityKey) => {
+    setSelectedIds(prev => ({ ...prev, [entity]: new Set() }));
+  }, []);
+
+  const getServiceMethods = useCallback((entity: EntityKey) => {
+    switch (entity) {
+      case 'kundenverwaltung': return {
+        create: (fields: any) => LivingAppsService.createKundenverwaltungEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateKundenverwaltungEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteKundenverwaltungEntry(id),
+      };
+      case 'katzenverwaltung': return {
+        create: (fields: any) => LivingAppsService.createKatzenverwaltungEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateKatzenverwaltungEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteKatzenverwaltungEntry(id),
+      };
+      case 'zimmerverwaltung': return {
+        create: (fields: any) => LivingAppsService.createZimmerverwaltungEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateZimmerverwaltungEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteZimmerverwaltungEntry(id),
+      };
+      case 'leistungsverwaltung': return {
+        create: (fields: any) => LivingAppsService.createLeistungsverwaltungEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateLeistungsverwaltungEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteLeistungsverwaltungEntry(id),
+      };
+      case 'buchungsverwaltung': return {
+        create: (fields: any) => LivingAppsService.createBuchungsverwaltungEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateBuchungsverwaltungEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteBuchungsverwaltungEntry(id),
+      };
+      case 'gesundheitsprotokoll': return {
+        create: (fields: any) => LivingAppsService.createGesundheitsprotokollEntry(fields),
+        update: (id: string, fields: any) => LivingAppsService.updateGesundheitsprotokollEntry(id, fields),
+        remove: (id: string) => LivingAppsService.deleteGesundheitsprotokollEntry(id),
+      };
+      default: return null;
+    }
+  }, []);
+
+  async function handleCreate(entity: EntityKey, fields: any) {
+    const svc = getServiceMethods(entity);
+    if (!svc) return;
+    await svc.create(fields);
+    fetchAll();
+    setCreateEntity(null);
+  }
+
+  async function handleUpdate(fields: any) {
+    if (!dialogState) return;
+    const svc = getServiceMethods(dialogState.entity);
+    if (!svc) return;
+    await svc.update(dialogState.record.record_id, fields);
+    fetchAll();
+    setDialogState(null);
+  }
+
+  async function handleBulkDelete() {
+    if (!deleteTargets) return;
+    const svc = getServiceMethods(deleteTargets.entity);
+    if (!svc) return;
+    setBulkLoading(true);
+    try {
+      for (const id of deleteTargets.ids) {
+        await svc.remove(id);
+      }
+      clearSelection(deleteTargets.entity);
+      fetchAll();
+    } finally {
+      setBulkLoading(false);
+      setDeleteTargets(null);
+    }
+  }
+
+  async function handleBulkClone() {
+    const svc = getServiceMethods(activeTab);
+    if (!svc) return;
+    setBulkLoading(true);
+    try {
+      const records = getRecords(activeTab);
+      const ids = Array.from(selectedIds[activeTab]);
+      for (const id of ids) {
+        const rec = records.find((r: any) => r.record_id === id);
+        if (!rec) continue;
+        const clean = cleanFieldsForApi(rec.fields, activeTab);
+        await svc.create(clean as any);
+      }
+      clearSelection(activeTab);
+      fetchAll();
+    } finally {
+      setBulkLoading(false);
+    }
+  }
+
+  async function handleBulkEdit(fieldKey: string, value: any) {
+    if (!bulkEditOpen) return;
+    const svc = getServiceMethods(bulkEditOpen);
+    if (!svc) return;
+    setBulkLoading(true);
+    try {
+      const ids = Array.from(selectedIds[bulkEditOpen]);
+      for (const id of ids) {
+        await svc.update(id, { [fieldKey]: value });
+      }
+      clearSelection(bulkEditOpen);
+      fetchAll();
+    } finally {
+      setBulkLoading(false);
+      setBulkEditOpen(null);
+    }
+  }
+
+  function updateFilter(entity: EntityKey, fieldKey: string, value: string) {
+    setFilters(prev => ({
+      ...prev,
+      [entity]: { ...prev[entity], [fieldKey]: value },
+    }));
+  }
+
+  function clearEntityFilters(entity: EntityKey) {
+    setFilters(prev => ({ ...prev, [entity]: {} }));
+  }
+
+  const activeFilterCount = useMemo(() => {
+    const f = filters[activeTab] ?? {};
+    return Object.values(f).filter(v => v && v !== '').length;
+  }, [filters, activeTab]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-32">
+        <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-32 gap-4">
+        <p className="text-destructive">{error.message}</p>
+        <Button onClick={fetchAll}>Erneut versuchen</Button>
+      </div>
+    );
+  }
+
+  const filtered = getFilteredRecords(activeTab);
+  const sel = selectedIds[activeTab];
+  const allFiltered = filtered.every((r: any) => sel.has(r.record_id)) && filtered.length > 0;
+  const fieldMeta = getFieldMeta(activeTab);
+
+  return (
+    <PageShell
+      title="Verwaltung"
+      subtitle="Alle Daten verwalten"
+      action={
+        <Button onClick={() => setCreateEntity(activeTab)} className="shrink-0">
+          <IconPlus className="h-4 w-4 mr-2" /> Hinzufügen
+        </Button>
+      }
+    >
+      <div className="flex gap-2 flex-wrap">
+        {ENTITY_TABS.map(tab => {
+          const count = getRecords(tab.key).length;
+          return (
+            <button
+              key={tab.key}
+              onClick={() => { setActiveTab(tab.key); setSearch(''); setSortKey(''); setSortDir('asc'); fetchAll(); }}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                activeTab === tab.key
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+              }`}
+            >
+              {tab.label}
+              <Badge variant="secondary" className="ml-1 text-xs">{count}</Badge>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-2">
+          <div className="relative w-full max-w-sm">
+            <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Suchen..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="pl-9 h-9"
+            />
+          </div>
+          <Button variant="outline" size="sm" onClick={() => setShowFilters(f => !f)} className="gap-2">
+            <IconFilter className="h-4 w-4" />
+            Filtern
+            {activeFilterCount > 0 && (
+              <Badge variant="secondary" className="ml-1">{activeFilterCount}</Badge>
+            )}
+          </Button>
+          {activeFilterCount > 0 && (
+            <Button variant="ghost" size="sm" onClick={() => clearEntityFilters(activeTab)}>
+              Filter zurücksetzen
+            </Button>
+          )}
+        </div>
+        {sel.size > 0 && (
+          <div className="flex items-center gap-2 flex-wrap bg-muted/60 rounded-lg px-3 py-1.5">
+            <span className="text-sm font-medium">{sel.size} ausgewählt</span>
+            <Button variant="outline" size="sm" onClick={() => setBulkEditOpen(activeTab)}>
+              <IconPencil className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Feld bearbeiten</span>
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => handleBulkClone()}>
+              <IconCopy className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Kopieren</span>
+            </Button>
+            <Button variant="destructive" size="sm" onClick={() => setDeleteTargets({ entity: activeTab, ids: Array.from(sel) })}>
+              <IconTrash className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Ausgewählte löschen</span>
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => clearSelection(activeTab)}>
+              <IconX className="h-3.5 w-3.5 sm:mr-1" /> <span className="hidden sm:inline">Auswahl aufheben</span>
+            </Button>
+          </div>
+        )}
+      </div>
+
+      {showFilters && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4 rounded-lg border bg-muted/30">
+          {fieldMeta.map((fm: any) => (
+            <div key={fm.key} className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">{fm.label}</label>
+              {fm.type === 'bool' ? (
+                <Select value={filters[activeTab]?.[fm.key] ?? ''} onValueChange={v => updateFilter(activeTab, fm.key, v === 'all' ? '' : v)}>
+                  <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Alle" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Alle</SelectItem>
+                    <SelectItem value="true">Ja</SelectItem>
+                    <SelectItem value="false">Nein</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : fm.type === 'lookup/select' || fm.type === 'lookup/radio' ? (
+                <Select value={filters[activeTab]?.[fm.key] ?? ''} onValueChange={v => updateFilter(activeTab, fm.key, v === 'all' ? '' : v)}>
+                  <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Alle" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Alle</SelectItem>
+                    {fm.options?.map((o: any) => (
+                      <SelectItem key={o.key} value={o.label}>{o.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  className="h-8 text-xs"
+                  placeholder="Filtern..."
+                  value={filters[activeTab]?.[fm.key] ?? ''}
+                  onChange={e => updateFilter(activeTab, fm.key, e.target.value)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="rounded-[27px] bg-card shadow-lg overflow-x-auto">
+        <Table className="[&_tbody_td]:px-6 [&_tbody_td]:py-2 [&_tbody_td]:text-base [&_tbody_td]:font-medium [&_tbody_tr:first-child_td]:pt-6 [&_tbody_tr:last-child_td]:pb-10">
+          <TableHeader className="bg-secondary">
+            <TableRow className="border-b border-input">
+              <TableHead className="w-10 px-6">
+                <Checkbox
+                  checked={allFiltered}
+                  onCheckedChange={() => toggleSelectAll(activeTab)}
+                />
+              </TableHead>
+              {fieldMeta.map((fm: any) => (
+                <TableHead key={fm.key} className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort(fm.key)}>
+                  <span className="inline-flex items-center gap-1">
+                    {fm.label}
+                    {sortKey === fm.key ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
+                  </span>
+                </TableHead>
+              ))}
+              <TableHead className="w-24 uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6">Aktionen</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sortRecords(filtered).map((record: any) => (
+              <TableRow key={record.record_id} className={`transition-colors cursor-pointer ${sel.has(record.record_id) ? "bg-primary/5" : "hover:bg-muted/50"}`} onClick={(e) => { if ((e.target as HTMLElement).closest('button, [role="checkbox"]')) return; setViewState({ entity: activeTab, record }); }}>
+                <TableCell>
+                  <Checkbox
+                    checked={sel.has(record.record_id)}
+                    onCheckedChange={() => toggleSelect(activeTab, record.record_id)}
+                  />
+                </TableCell>
+                {fieldMeta.map((fm: any) => {
+                  const val = record.fields?.[fm.key];
+                  if (fm.type === 'bool') {
+                    return (
+                      <TableCell key={fm.key}>
+                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                          val ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
+                        }`}>
+                          {val ? 'Ja' : 'Nein'}
+                        </span>
+                      </TableCell>
+                    );
+                  }
+                  if (fm.type === 'lookup/select' || fm.type === 'lookup/radio') {
+                    return <TableCell key={fm.key}><span className="inline-flex items-center bg-secondary border border-[#bfdbfe] text-[#2563eb] rounded-[10px] px-2 py-1 text-sm font-medium">{val?.label ?? '—'}</span></TableCell>;
+                  }
+                  if (fm.type.includes('multiplelookup')) {
+                    return <TableCell key={fm.key}>{Array.isArray(val) ? val.map((v: any) => v?.label ?? v).join(', ') : '—'}</TableCell>;
+                  }
+                  if (fm.type.includes('applookup')) {
+                    return <TableCell key={fm.key}><span className="inline-flex items-center bg-secondary border border-[#bfdbfe] text-[#2563eb] rounded-[10px] px-2 py-1 text-sm font-medium">{getApplookupDisplay(activeTab, fm.key, val)}</span></TableCell>;
+                  }
+                  if (fm.type.includes('date')) {
+                    return <TableCell key={fm.key} className="text-muted-foreground">{fmtDate(val)}</TableCell>;
+                  }
+                  if (fm.type.startsWith('file')) {
+                    return (
+                      <TableCell key={fm.key}>
+                        {val ? (
+                          <div className="relative h-8 w-8 rounded bg-muted overflow-hidden">
+                            <img src={val} alt="" className="h-full w-full object-cover" onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                          </div>
+                        ) : '—'}
+                      </TableCell>
+                    );
+                  }
+                  if (fm.type === 'string/textarea') {
+                    return <TableCell key={fm.key} className="max-w-xs"><span className="truncate block">{val ?? '—'}</span></TableCell>;
+                  }
+                  if (fm.type === 'geo') {
+                    return (
+                      <TableCell key={fm.key} className="max-w-[200px]">
+                        <span className="truncate block" title={val ? `${val.lat}, ${val.long}` : undefined}>
+                          {val?.info ?? (val ? `${val.lat?.toFixed(4)}, ${val.long?.toFixed(4)}` : '—')}
+                        </span>
+                      </TableCell>
+                    );
+                  }
+                  return <TableCell key={fm.key}>{val ?? '—'}</TableCell>;
+                })}
+                <TableCell>
+                  <div className="flex gap-1">
+                    <Button variant="ghost" size="icon" onClick={() => setDialogState({ entity: activeTab, record })}>
+                      <IconPencil className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => setDeleteTargets({ entity: activeTab, ids: [record.record_id] })}>
+                      <IconTrash className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+            {filtered.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={fieldMeta.length + 2} className="text-center py-16 text-muted-foreground">
+                  Keine Ergebnisse gefunden.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {(createEntity === 'kundenverwaltung' || dialogState?.entity === 'kundenverwaltung') && (
+        <KundenverwaltungDialog
+          open={createEntity === 'kundenverwaltung' || dialogState?.entity === 'kundenverwaltung'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'kundenverwaltung' ? handleUpdate : (fields: any) => handleCreate('kundenverwaltung', fields)}
+          defaultValues={dialogState?.entity === 'kundenverwaltung' ? dialogState.record?.fields : undefined}
+          enablePhotoScan={AI_PHOTO_SCAN['Kundenverwaltung']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Kundenverwaltung']}
+        />
+      )}
+      {(createEntity === 'katzenverwaltung' || dialogState?.entity === 'katzenverwaltung') && (
+        <KatzenverwaltungDialog
+          open={createEntity === 'katzenverwaltung' || dialogState?.entity === 'katzenverwaltung'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'katzenverwaltung' ? handleUpdate : (fields: any) => handleCreate('katzenverwaltung', fields)}
+          defaultValues={dialogState?.entity === 'katzenverwaltung' ? dialogState.record?.fields : undefined}
+          kundenverwaltungList={(data as any).kundenverwaltung ?? []}
+          enablePhotoScan={AI_PHOTO_SCAN['Katzenverwaltung']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Katzenverwaltung']}
+        />
+      )}
+      {(createEntity === 'zimmerverwaltung' || dialogState?.entity === 'zimmerverwaltung') && (
+        <ZimmerverwaltungDialog
+          open={createEntity === 'zimmerverwaltung' || dialogState?.entity === 'zimmerverwaltung'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'zimmerverwaltung' ? handleUpdate : (fields: any) => handleCreate('zimmerverwaltung', fields)}
+          defaultValues={dialogState?.entity === 'zimmerverwaltung' ? dialogState.record?.fields : undefined}
+          enablePhotoScan={AI_PHOTO_SCAN['Zimmerverwaltung']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Zimmerverwaltung']}
+        />
+      )}
+      {(createEntity === 'leistungsverwaltung' || dialogState?.entity === 'leistungsverwaltung') && (
+        <LeistungsverwaltungDialog
+          open={createEntity === 'leistungsverwaltung' || dialogState?.entity === 'leistungsverwaltung'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'leistungsverwaltung' ? handleUpdate : (fields: any) => handleCreate('leistungsverwaltung', fields)}
+          defaultValues={dialogState?.entity === 'leistungsverwaltung' ? dialogState.record?.fields : undefined}
+          enablePhotoScan={AI_PHOTO_SCAN['Leistungsverwaltung']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Leistungsverwaltung']}
+        />
+      )}
+      {(createEntity === 'buchungsverwaltung' || dialogState?.entity === 'buchungsverwaltung') && (
+        <BuchungsverwaltungDialog
+          open={createEntity === 'buchungsverwaltung' || dialogState?.entity === 'buchungsverwaltung'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'buchungsverwaltung' ? handleUpdate : (fields: any) => handleCreate('buchungsverwaltung', fields)}
+          defaultValues={dialogState?.entity === 'buchungsverwaltung' ? dialogState.record?.fields : undefined}
+          kundenverwaltungList={(data as any).kundenverwaltung ?? []}
+          katzenverwaltungList={(data as any).katzenverwaltung ?? []}
+          zimmerverwaltungList={(data as any).zimmerverwaltung ?? []}
+          leistungsverwaltungList={(data as any).leistungsverwaltung ?? []}
+          enablePhotoScan={AI_PHOTO_SCAN['Buchungsverwaltung']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Buchungsverwaltung']}
+        />
+      )}
+      {(createEntity === 'gesundheitsprotokoll' || dialogState?.entity === 'gesundheitsprotokoll') && (
+        <GesundheitsprotokollDialog
+          open={createEntity === 'gesundheitsprotokoll' || dialogState?.entity === 'gesundheitsprotokoll'}
+          onClose={() => { setCreateEntity(null); setDialogState(null); }}
+          onSubmit={dialogState?.entity === 'gesundheitsprotokoll' ? handleUpdate : (fields: any) => handleCreate('gesundheitsprotokoll', fields)}
+          defaultValues={dialogState?.entity === 'gesundheitsprotokoll' ? dialogState.record?.fields : undefined}
+          buchungsverwaltungList={(data as any).buchungsverwaltung ?? []}
+          katzenverwaltungList={(data as any).katzenverwaltung ?? []}
+          enablePhotoScan={AI_PHOTO_SCAN['Gesundheitsprotokoll']}
+          enablePhotoLocation={AI_PHOTO_LOCATION['Gesundheitsprotokoll']}
+        />
+      )}
+      {viewState?.entity === 'kundenverwaltung' && (
+        <KundenverwaltungViewDialog
+          open={viewState?.entity === 'kundenverwaltung'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'kundenverwaltung', record: r }); }}
+        />
+      )}
+      {viewState?.entity === 'katzenverwaltung' && (
+        <KatzenverwaltungViewDialog
+          open={viewState?.entity === 'katzenverwaltung'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'katzenverwaltung', record: r }); }}
+          kundenverwaltungList={(data as any).kundenverwaltung ?? []}
+        />
+      )}
+      {viewState?.entity === 'zimmerverwaltung' && (
+        <ZimmerverwaltungViewDialog
+          open={viewState?.entity === 'zimmerverwaltung'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'zimmerverwaltung', record: r }); }}
+        />
+      )}
+      {viewState?.entity === 'leistungsverwaltung' && (
+        <LeistungsverwaltungViewDialog
+          open={viewState?.entity === 'leistungsverwaltung'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'leistungsverwaltung', record: r }); }}
+        />
+      )}
+      {viewState?.entity === 'buchungsverwaltung' && (
+        <BuchungsverwaltungViewDialog
+          open={viewState?.entity === 'buchungsverwaltung'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'buchungsverwaltung', record: r }); }}
+          kundenverwaltungList={(data as any).kundenverwaltung ?? []}
+          katzenverwaltungList={(data as any).katzenverwaltung ?? []}
+          zimmerverwaltungList={(data as any).zimmerverwaltung ?? []}
+          leistungsverwaltungList={(data as any).leistungsverwaltung ?? []}
+        />
+      )}
+      {viewState?.entity === 'gesundheitsprotokoll' && (
+        <GesundheitsprotokollViewDialog
+          open={viewState?.entity === 'gesundheitsprotokoll'}
+          onClose={() => setViewState(null)}
+          record={viewState?.record}
+          onEdit={(r: any) => { setViewState(null); setDialogState({ entity: 'gesundheitsprotokoll', record: r }); }}
+          buchungsverwaltungList={(data as any).buchungsverwaltung ?? []}
+          katzenverwaltungList={(data as any).katzenverwaltung ?? []}
+        />
+      )}
+
+      <BulkEditDialog
+        open={!!bulkEditOpen}
+        onClose={() => setBulkEditOpen(null)}
+        onApply={handleBulkEdit}
+        fields={bulkEditOpen ? getFieldMeta(bulkEditOpen) : []}
+        selectedCount={bulkEditOpen ? selectedIds[bulkEditOpen].size : 0}
+        loading={bulkLoading}
+        lookupLists={bulkEditOpen ? getLookupLists(bulkEditOpen) : {}}
+      />
+
+      <ConfirmDialog
+        open={!!deleteTargets}
+        onClose={() => setDeleteTargets(null)}
+        onConfirm={handleBulkDelete}
+        title="Ausgewählte löschen"
+        description={`Sollen ${deleteTargets?.ids.length ?? 0} Einträge wirklich gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.`}
+      />
+    </PageShell>
+  );
+}
+```

@@ -1,0 +1,13 @@
+- Kundenverwaltung (kundenverwaltung): nachname[string/text], email[string/email], telefon[string/tel], strasse[string/text], hausnummer[string/text], plz[string/text], ort[string/text], notfall_vorname[string/text], notfall_nachname[string/text], notfall_telefon[string/tel], anmerkungen[string/textarea], vorname[string/text]
+- Katzenverwaltung (katzenverwaltung): besitzer[applookup/select], katze_name[string/text], rasse[string/text], geburtsdatum[date/date], geschlecht[lookup/radio], farbe[string/text], kastriert[bool], impfstatus[multiplelookup/checkbox], impfpass_foto[file], tierarzt_vorname[string/text], tierarzt_nachname[string/text], tierarzt_telefon[string/tel], medikamente[string/textarea], allergien[string/textarea], fuetterung[string/textarea], verhalten[string/textarea], katze_foto[file]
+  → besitzer links to app_id 69e4c4c98eb47c71ad1956f9
+- Zimmerverwaltung (zimmerverwaltung): zimmer_name[string/text], zimmer_typ[lookup/select], kapazitaet[number], tagespreis[number], beschreibung[string/textarea], ausstattung[multiplelookup/checkbox], zimmer_status[lookup/radio], zimmer_foto[file]
+- Leistungsverwaltung (leistungsverwaltung): leistung_name[string/text], leistung_beschreibung[string/textarea], preis[number], preiseinheit[lookup/radio], leistung_kategorie[lookup/select]
+- Buchungsverwaltung (buchungsverwaltung): buchungsnummer[string/text], buchungsstatus[lookup/select], anreise[date/datetimeminute], abreise[date/datetimeminute], kunde[applookup/select], katzen[applookup/select], zimmer[applookup/select], zusatzleistungen[applookup/select], gesamtpreis[number], anzahlung[number], zahlungsstatus[lookup/select], buchungshinweise[string/textarea]
+  → kunde links to app_id 69e4c4c98eb47c71ad1956f9
+  → katzen links to app_id 69e4c4d0b9f510e8ee94ecc0
+  → zimmer links to app_id 69e4c4d1c6f3ba44887a782b
+  → zusatzleistungen links to app_id 69e4c4d20db815a323b93354
+- Gesundheitsprotokoll (gesundheitsprotokoll): buchung[applookup/select], katze[applookup/select], protokoll_datum[date/date], fressverhalten[lookup/radio], aktivitaet[lookup/radio], befinden[lookup/radio], medikamente_verabreicht[bool], medikamente_notiz[string/textarea], beobachtungen[string/textarea], protokoll_foto[file]
+  → buchung links to app_id 69e4c4d3d0b075a7e61dc8ac
+  → katze links to app_id 69e4c4d0b9f510e8ee94ecc0
