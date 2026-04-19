@@ -14,7 +14,8 @@ import {
   IconAlertCircle, IconTool, IconRefresh, IconCheck,
   IconPlus, IconPencil, IconTrash, IconCat, IconBuilding,
   IconCalendar, IconUsers, IconBed, IconHeartHandshake,
-  IconCurrencyEuro, IconClipboardList
+  IconCurrencyEuro, IconClipboardList, IconChevronRight,
+  IconCalendarPlus, IconClipboardCheck
 } from '@tabler/icons-react';
 import { AI_PHOTO_SCAN } from '@/config/ai-features';
 import { BuchungsverwaltungDialog } from '@/components/dialogs/BuchungsverwaltungDialog';
@@ -119,6 +120,26 @@ export default function DashboardOverview() {
 
   return (
     <div className="space-y-6">
+      {/* Workflow-Navigation */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a href="#/intents/neue-buchung" className="bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border-l-4 border-l-primary overflow-hidden">
+          <IconCalendarPlus size={24} className="text-primary shrink-0" stroke={1.5} />
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold text-sm truncate">Neue Buchung anlegen</div>
+            <div className="text-xs text-muted-foreground line-clamp-2">Kunde, Katzen, Zimmer und Leistungen in einem Schritt buchen</div>
+          </div>
+          <IconChevronRight size={18} className="text-muted-foreground shrink-0" stroke={1.5} />
+        </a>
+        <a href="#/intents/tagesprotokoll" className="bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border-l-4 border-l-primary overflow-hidden">
+          <IconClipboardCheck size={24} className="text-primary shrink-0" stroke={1.5} />
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold text-sm truncate">Tagesprotokoll erfassen</div>
+            <div className="text-xs text-muted-foreground line-clamp-2">Gesundheitszustand aller Katzen einer aktiven Buchung protokollieren</div>
+          </div>
+          <IconChevronRight size={18} className="text-muted-foreground shrink-0" stroke={1.5} />
+        </a>
+      </div>
+
       {/* KPI-Leiste */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
